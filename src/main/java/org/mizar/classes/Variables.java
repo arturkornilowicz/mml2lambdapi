@@ -3,6 +3,10 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.Representation;
+import org.mizar.misc.Errors;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -14,7 +18,7 @@ public class Variables extends XMLElement {
 
     public Variables(Element element) {
         super(element);
-        for (Element element1: element.elements(ElementNames.VARIABLE)) {
+        for (Element element1: element.elements(ESXElementName.VARIABLE)) {
             variables.add(new Variable(element1));
         }
     }
@@ -34,5 +38,21 @@ public class Variables extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        String string = "";
+        if (!getElement().getParent().getParent().getParent().getName().equalsIgnoreCase(ESXElementName.UNIVERSAL_QUANTIFIER_FORMULA)
+                && !getElement().getParent().getParent().getParent().getName().equalsIgnoreCase(ESXElementName.EXISTENTIAL_QUANTIFIER_FORMULA)
+        ) {
+            Errors.logException(new RuntimeException("Wrong element in " + this.getClass().getName()),"");
+            throw new RuntimeException("Wrong element in " + this.getClass().getName());
+        }
+        String quantifier = getElement().getParent().getParent().getParent().getName().equals(ESXElementName.UNIVERSAL_QUANTIFIER_FORMULA) ? Keyword.AQUANTIFIER : Keyword.EQUANTIFIER;
+        for (Variable variable: variables) {
+            string += quantifier + " " + variable.lpRepr().repr + ", ";
+        }
+        return new Representation(string);
     }
 }

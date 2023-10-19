@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.ESXAttributeName;
 
 @Setter
 @Getter
@@ -29,5 +31,10 @@ public class TypeSpecification extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return type.lpRepr();
     }
 }

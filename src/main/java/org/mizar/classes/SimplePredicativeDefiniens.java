@@ -2,6 +2,10 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -14,7 +18,7 @@ public class SimplePredicativeDefiniens extends Definiens {
 
     public SimplePredicativeDefiniens(Element element) {
         super(element);
-        label = new Label(element.element(ElementNames.LABEL));
+        label = new Label(element.element(ESXElementName.LABEL));
         formula = Formula.buildFormula(element.elements().get(1));
     }
 
@@ -32,5 +36,13 @@ public class SimplePredicativeDefiniens extends Definiens {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        String string = "";
+        string += LambdaPi.comment(getClass().getSimpleName() + "\n");
+        string += LambdaPi.symbolWithDefinition(formula.lpRepr().repr,true);
+        return new Representation(string);
     }
 }

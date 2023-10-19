@@ -3,6 +3,7 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -14,15 +15,13 @@ public class Conditions extends XMLElement {
 
     public Conditions(Element element) {
         super(element);
-        for (Element element1: element.elements(ElementNames.PROPOSITION)) {
+        for (Element element1: element.elements(ESXElementName.PROPOSITION)) {
             propositions.add(new Proposition(element1));
         }
     }
 
     @Override
-    public void preProcess() {
-        super.preProcess();
-    }
+    public void preProcess() { super.preProcess(); }
 
     @Override
     public void process() {

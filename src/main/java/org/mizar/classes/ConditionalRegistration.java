@@ -2,6 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -23,6 +26,7 @@ public class ConditionalRegistration extends Cluster {
     @Override
     public void preProcess() {
         super.preProcess();
+        LambdaPi.addComment("Conditional");
     }
 
     @Override
@@ -34,6 +38,18 @@ public class ConditionalRegistration extends Cluster {
 
     @Override
     public void postProcess() {
+        Element tempElement = DocumentHelper.createElement(ESXElementName.SIMPLE_TERM.toString().replace("-",""))
+                .addAttribute(ESXAttributeName.SPELLING,LambdaPi.patternVariable);
+        String scope = "";
+        if (pred.getAttributes().size() > 0) {
+            scope += Keyword.IMP + " ";
+            scope += LambdaPi.termWithAdjectives(pred, new SimpleTerm(tempElement)) + " ";
+        }
+        scope += LambdaPi.termWithAdjectives(succ,new SimpleTerm(tempElement));
+        String formula = LambdaPi.univQuantifier(LambdaPi.patternVariable,LambdaPi.OBJECT_TYPE,scope);
+        String name = "Cl_" + LambdaPi.normalizeMMLId(getElement().attributeValue(ESXAttributeName.POSITION));
+        String args = LambdaPi.argsElement();
+        LambdaPi.addStatementWithProof(name,args,formula);
         super.postProcess();
     }
 }

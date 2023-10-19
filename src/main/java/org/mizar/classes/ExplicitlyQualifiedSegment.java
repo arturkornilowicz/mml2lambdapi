@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -14,14 +16,12 @@ public class ExplicitlyQualifiedSegment extends QualifiedSegment {
 
     public ExplicitlyQualifiedSegment(Element element) {
         super(element);
-        variables = new Variables(element.element(ElementNames.VARIABLES));
+        variables = new Variables(element.element(ESXElementName.VARIABLES));
         type = Type.buildType(element.elements().get(1));
     }
 
     @Override
-    public void preProcess() {
-        super.preProcess();
-    }
+    public void preProcess() { super.preProcess(); }
 
     @Override
     public void process() {
@@ -32,5 +32,17 @@ public class ExplicitlyQualifiedSegment extends QualifiedSegment {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return variables.lpRepr();
+    }
+
+    @Override
+    protected void splitSegmentToVariables() {
+        for (Variable variable: variables.getVariables()) {
+            _Statics.currentDefinitionItem.getVariables().put(variable,type);
+        }
     }
 }

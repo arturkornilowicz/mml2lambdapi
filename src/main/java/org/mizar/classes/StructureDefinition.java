@@ -2,6 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -16,15 +19,16 @@ public class StructureDefinition extends Item {
 
     public StructureDefinition(Element element) {
         super(element);
-        ancestors = new Ancestors(element.element(ElementNames.ANCESTORS));
-        structurePattern = new StructurePattern(element.element(ElementNames.STRUCTURE_PATTERN));
-        fieldSegments = new FieldSegments(element.element(ElementNames.FIELD_SEGMENTS));
-        structurePatternsRendering = new StructurePatternsRendering(element.element(ElementNames.STRUCTURE_PATTERNS_RENDERING));
+        ancestors = new Ancestors(element.element(ESXElementName.ANCESTORS));
+        structurePattern = new StructurePattern(element.element(ESXElementName.STRUCTURE_PATTERN));
+        fieldSegments = new FieldSegments(element.element(ESXElementName.FIELD_SEGMENTS));
+        structurePatternsRendering = new StructurePatternsRendering(element.element(ESXElementName.STRUCTURE_PATTERNS_RENDERING));
     }
 
     @Override
     public void preProcess() {
         super.preProcess();
+        LambdaPi.addComment("Structure");
     }
 
     @Override

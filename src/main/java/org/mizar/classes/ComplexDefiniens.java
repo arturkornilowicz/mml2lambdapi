@@ -2,6 +2,10 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -15,14 +19,15 @@ public class ComplexDefiniens extends Definiens {
 
     public ComplexDefiniens(Element element) {
         super(element);
-        label = new Label(element.element(ElementNames.LABEL));
-        partialDefiniensList = new PartialDefiniensList(element.element(ElementNames.PARTIAL_DEFINIENS_LIST));
-        otherwise = Otherwise.buildOtherwise(element.element(ElementNames.OTHERWISE));
+        label = new Label(element.element(ESXElementName.LABEL));
+        partialDefiniensList = new PartialDefiniensList(element.element(ESXElementName.PARTIAL_DEFINIENS_LIST));
+        otherwise = Otherwise.buildOtherwise(element.element(ESXElementName.OTHERWISE));
     }
 
     @Override
     public void preProcess() {
         super.preProcess();
+        LambdaPi.addComment(getClass().getSimpleName());
     }
 
     @Override
@@ -35,5 +40,18 @@ public class ComplexDefiniens extends Definiens {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        String string = "";
+        string += partialDefiniensList.lpRepr().repr;
+        String guards = LambdaPi.negation(partialDefiniensList.guards());
+        string = LambdaPi.conjunction(string,LambdaPi.conjunction(guards,otherwise.lpRepr().repr));
+//        LambdaPi.addTextLn(Keyword.SYMBOL + " A " + Keyword.IS + " true;");
+//        LambdaPi.addTextLn(Keyword.SYMBOL + " B " + Keyword.IS + " true;");
+//        LambdaPi.addTextLn("type " +  string + ";");
+        string = LambdaPi.symbolWithDefinition(string,true);
+        return new Representation(string);
     }
 }

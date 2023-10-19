@@ -3,6 +3,8 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.application.MML2LambdaPiApplication;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -34,5 +36,15 @@ public class Arguments extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+
+    @Override
+    public Representation lpRepr() {
+        String string = "";
+        for (Term term: arguments) {
+            string += term.lpRepr() + " ";
+        }
+        return new Representation(string);
     }
 }

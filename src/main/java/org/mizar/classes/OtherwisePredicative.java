@@ -2,6 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -33,5 +36,10 @@ public class OtherwisePredicative extends Otherwise {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return formula.lpRepr();
     }
 }

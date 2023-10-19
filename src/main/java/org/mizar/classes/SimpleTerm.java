@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import static org.mizar.lambdapi.LambdaPi.*;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -24,5 +26,9 @@ public class SimpleTerm extends Term {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    public Representation lpRepr() {
+        return new Representation(spelling(this));
     }
 }

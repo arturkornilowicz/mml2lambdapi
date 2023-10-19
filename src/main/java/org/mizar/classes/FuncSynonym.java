@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.*;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -15,12 +17,13 @@ public class FuncSynonym extends Item {
     public FuncSynonym(Element element) {
         super(element);
         functorPattern = FunctorPattern.buildFunctorPattern(element.elements().get(0));
-        patternShapedExpression = new PatternShapedExpression(element.element(ElementNames.PATTERN_SHAPED_EXPRESSION));
+        patternShapedExpression = new PatternShapedExpression(element.element(ESXElementName.PATTERN_SHAPED_EXPRESSION));
     }
 
     @Override
     public void preProcess() {
         super.preProcess();
+        LambdaPi.addComment("Functor Synonym");
     }
 
     @Override
@@ -31,6 +34,8 @@ public class FuncSynonym extends Item {
 
     @Override
     public void postProcess() {
+        _Statics.setCurrentPattern(functorPattern);
+        functorPattern.addNotationPattern(getPatternShapedExpression().getPattern(),false);
         super.postProcess();
     }
 }

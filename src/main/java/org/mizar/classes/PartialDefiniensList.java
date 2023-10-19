@@ -3,6 +3,10 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -14,7 +18,7 @@ public class PartialDefiniensList extends XMLElement {
 
     public PartialDefiniensList(Element element) {
         super(element);
-        for (Element element1: element.elements(ElementNames.PARTIAL_DEFINIENS)) {
+        for (Element element1: element.elements(ESXElementName.PARTIAL_DEFINIENS)) {
             partialDefiniensList.add(PartialDefiniens.buildPartialDefiniens(element1));
         }
     }
@@ -34,5 +38,22 @@ public class PartialDefiniensList extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        List<String> list = new LinkedList<>();
+        for (PartialDefiniens partialDefiniens: partialDefiniensList) {
+            list.add(partialDefiniens.lpRepr().repr);
+        }
+        return new Representation(LambdaPi.longBinaryConnective(Keyword.AND,list));
+    }
+
+    public String guards() {
+        List<String> list = new LinkedList<>();
+        for (PartialDefiniens partialDefiniens: partialDefiniensList) {
+            list.add(partialDefiniens.getGuard().lpRepr().repr);
+        }
+        return LambdaPi.longBinaryConnective(Keyword.OR,list);
     }
 }

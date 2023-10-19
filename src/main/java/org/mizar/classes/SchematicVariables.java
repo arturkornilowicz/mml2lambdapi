@@ -3,6 +3,7 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -34,5 +35,14 @@ public class SchematicVariables extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        String string = "";
+        for (SchematicVariableSegment schematicVariableSegment: segments) {
+            string += schematicVariableSegment.lpRepr();
+        }
+        return new Representation(string);
     }
 }

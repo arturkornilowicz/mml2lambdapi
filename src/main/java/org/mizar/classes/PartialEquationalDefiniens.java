@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -10,12 +12,10 @@ import org.dom4j.*;
 public class PartialEquationalDefiniens extends PartialDefiniens {
 
     private Term term;
-    private Formula guard;
 
     public PartialEquationalDefiniens(Element element) {
         super(element);
         term = Term.buildTerm(element.elements().get(0));
-        guard = Formula.buildFormula(element.elements().get(1));
     }
 
     @Override
@@ -26,11 +26,15 @@ public class PartialEquationalDefiniens extends PartialDefiniens {
     @Override
     public void process() {
         term.run();
-        guard.run();
     }
 
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return new Representation(LambdaPi.implication(getGuard().lpRepr().repr,term.lpRepr().repr));
     }
 }

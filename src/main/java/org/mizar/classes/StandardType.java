@@ -2,6 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.application.MML2LambdaPiApplication;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -13,12 +16,12 @@ public class StandardType extends Type {
 
     public StandardType(Element element) {
         super(element);
-        arguments = new Arguments(element.element(ElementNames.ARGUMENTS));
+        arguments = new Arguments(element.element(ESXElementName.ARGUMENTS));
     }
 
     @Override
-    public void preProcess() {
-        super.preProcess();
+    public void preProcess() { super.preProcess();
+        setTypeSymbol(MML2LambdaPiApplication.translations.translation(getElement()).lpRepr().repr);
     }
 
     @Override
@@ -29,5 +32,19 @@ public class StandardType extends Type {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        String string = "";
+        int arity = arguments.getArguments().size() ;
+        for (int a = 0; a < arity; a++) {
+            string += "(";
+        }
+        string += MML2LambdaPiApplication.translations.translation(getElement()).lpRepr() + " ";
+        for (Term term: arguments.getArguments()) {
+            string += term.lpRepr() + ")";
+        }
+        return new Representation(string);
     }
 }

@@ -3,6 +3,8 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -14,7 +16,7 @@ public class AdjectiveCluster extends XMLElement {
 
     public AdjectiveCluster(Element element) {
         super(element);
-        for (Element element1: element.elements(ElementNames.ATTRIBUTE)) {
+        for (Element element1: element.elements(ESXElementName.ATTRIBUTE)) {
             attributes.add(new Attribute(element1));
         }
     }
@@ -35,4 +37,15 @@ public class AdjectiveCluster extends XMLElement {
     public void postProcess() {
         super.postProcess();
     }
+
+    @Override
+    public Representation lpRepr() {
+        //TODO make a conjunction
+        String result = "";
+        for (Attribute attribute: attributes) {
+            result += attribute.lpRepr() + " ";
+        }
+        return new Representation(result);
+    }
+
 }

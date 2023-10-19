@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -29,5 +31,11 @@ public class NegatedFormula extends Formula {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        String repr1 = getFormula().lpRepr().repr;
+        return new Representation(Keyword.NOT + " (" + repr1 + ")");
     }
 }

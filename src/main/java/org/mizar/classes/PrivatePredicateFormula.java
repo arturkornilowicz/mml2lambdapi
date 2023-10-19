@@ -2,6 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.*;
 
 @Setter
 @Getter
@@ -13,7 +16,7 @@ public class PrivatePredicateFormula extends Formula {
 
     public PrivatePredicateFormula(Element element) {
         super(element);
-        arguments = new Arguments(element.element(ElementNames.ARGUMENTS));
+        arguments = new Arguments(element.element(ESXElementName.ARGUMENTS));
     }
 
     @Override
@@ -29,5 +32,10 @@ public class PrivatePredicateFormula extends Formula {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return new Representation(LambdaPi.privateDefinition(this,arguments));
     }
 }

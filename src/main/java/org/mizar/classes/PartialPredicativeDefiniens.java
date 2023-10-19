@@ -2,6 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -10,12 +13,10 @@ import org.dom4j.*;
 public class PartialPredicativeDefiniens extends PartialDefiniens {
 
     private Formula formula;
-    private Formula guard;
 
     public PartialPredicativeDefiniens(Element element) {
         super(element);
         formula = Formula.buildFormula(element.elements().get(0));
-        guard = Formula.buildFormula(element.elements().get(1));
     }
 
     @Override
@@ -26,11 +27,15 @@ public class PartialPredicativeDefiniens extends PartialDefiniens {
     @Override
     public void process() {
         formula.run();
-        guard.run();
     }
 
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return new Representation(LambdaPi.implication(getGuard().lpRepr().repr,formula.lpRepr().repr));
     }
 }

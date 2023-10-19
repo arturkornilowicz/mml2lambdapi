@@ -2,6 +2,7 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -29,5 +30,10 @@ public class Scope extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return formula.lpRepr();
     }
 }
