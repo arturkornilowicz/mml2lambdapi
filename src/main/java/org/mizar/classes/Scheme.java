@@ -2,6 +2,7 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.application.MML2LambdaPiApplication;
 import org.mizar.lambdapi.LambdaPi;
 import org.mizar.lambdapi.Representation;
 
@@ -28,6 +29,7 @@ public class Scheme extends XMLElement {
 
     @Override
     public Representation lpRepr() {
-        return new Representation(LambdaPi.spelling(this) + "_" + LambdaPi.schemeNumber);
+        return new Representation(MML2LambdaPiApplication.fileName.toUpperCase() + "_"+ LambdaPi.schemeNumber);
+//        return new Representation({LambdaPi.spelling(this) + "_" + MML2LambdaPiApplication.fileName.toUpperCase() + "_"+ LambdaPi.schemeNumber);
     }
 }

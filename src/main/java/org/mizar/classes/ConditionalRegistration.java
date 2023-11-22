@@ -2,8 +2,7 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Keyword;
-import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.*;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -40,16 +39,19 @@ public class ConditionalRegistration extends Cluster {
     public void postProcess() {
         Element tempElement = DocumentHelper.createElement(ESXElementName.SIMPLE_TERM.toString().replace("-",""))
                 .addAttribute(ESXAttributeName.SPELLING,LambdaPi.patternVariable);
+        _Statics.currentTerm = new SimpleTerm(tempElement);
         String scope = "";
         if (pred.getAttributes().size() > 0) {
             scope += Keyword.IMP + " ";
+            scope += Keyword.LB;
             scope += LambdaPi.termWithAdjectives(pred, new SimpleTerm(tempElement)) + " ";
+            scope += Keyword.RB;
         }
         scope += LambdaPi.termWithAdjectives(succ,new SimpleTerm(tempElement));
-        String formula = LambdaPi.univQuantifier(LambdaPi.patternVariable,LambdaPi.OBJECT_TYPE,scope);
+        String formula = LambdaPi.univQuantifier(LambdaPi.patternVariable,LambdaPi.OBJECT_TYPE + " " + LambdaPi.patternVariable,scope);
         String name = "Cl_" + LambdaPi.normalizeMMLId(getElement().attributeValue(ESXAttributeName.POSITION));
         String args = LambdaPi.argsElement();
-        LambdaPi.addStatementWithProof(name,args,formula);
+        LambdaPi.addStatementWithProof(name,args,LambdaPi.allLociWithTypesAndFormula(formula));
         super.postProcess();
     }
 }

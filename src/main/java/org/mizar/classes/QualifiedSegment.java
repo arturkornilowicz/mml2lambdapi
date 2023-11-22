@@ -4,12 +4,13 @@ import lombok.*;
 import org.dom4j.*;
 import org.mizar.misc.*;
 import org.mizar.xml_names.*;
+import java.util.*;
 
 @Setter
 @Getter
 @ToString
 
-public class QualifiedSegment extends XMLElement {
+abstract public class QualifiedSegment extends XMLElement {
 
     public QualifiedSegment(Element element) {
         super(element);
@@ -49,4 +50,7 @@ public class QualifiedSegment extends XMLElement {
     }
 
     protected void splitSegmentToVariables() { }
+
+    abstract protected Type getDeclaredType();
+    abstract protected Map<Variable,Type> getVariablesType();
 }

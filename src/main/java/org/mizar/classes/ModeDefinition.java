@@ -2,7 +2,6 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Keyword;
 import org.mizar.lambdapi.LambdaPi;
 
 @Setter
@@ -22,17 +21,12 @@ public class ModeDefinition extends Definition {
     public void preProcess() {
         super.preProcess();
         LambdaPi.addComment("Mode");
+        _Statics.currentTerm = null;
     }
 
     @Override
-    public void process() {
-        getRedefine().run();
-        getPattern().run();
-        modePatternKind.run();
-    }
+    public void process() { super.process(); }
 
     @Override
-    public void postProcess() {
-        super.postProcess();
-    }
+    public void postProcess() { super.postProcess(); }
 }

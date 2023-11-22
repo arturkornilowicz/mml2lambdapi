@@ -13,6 +13,11 @@ import org.mizar.application.*;
 public class XMLElement {
 
     private Element element;
+    private Representation representation;
+
+    public XMLElement(Element element) {
+        this(element,null);
+    }
 
     public void preProcess() {}
 

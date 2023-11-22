@@ -4,6 +4,9 @@ import lombok.*;
 import org.dom4j.*;
 import org.mizar.xml_names.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @ToString
@@ -36,4 +39,11 @@ public class InfixFunctorPattern extends FunctorPattern {
         super.postProcess();
     }
 
+    @Override
+    public List<String> allArgs() {
+        List<String> result = new ArrayList<>();
+        result.addAll(leftLoci.allLoci());
+        result.addAll(rightLoci.allLoci());
+        return result;
+    }
 }

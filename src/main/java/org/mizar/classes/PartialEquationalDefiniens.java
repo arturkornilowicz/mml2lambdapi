@@ -25,6 +25,7 @@ public class PartialEquationalDefiniens extends PartialDefiniens {
 
     @Override
     public void process() {
+        super.process();
         term.run();
     }
 

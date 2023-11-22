@@ -9,7 +9,7 @@ import org.mizar.xml_names.*;
 @Getter
 @ToString
 
-public class FunctorPattern extends Pattern {
+abstract public class FunctorPattern extends Pattern {
 
     public FunctorPattern(Element element) {
         super(element);

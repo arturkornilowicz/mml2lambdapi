@@ -2,7 +2,6 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Keyword;
 import org.mizar.lambdapi.LambdaPi;
 import org.mizar.xml_names.*;
 
@@ -37,11 +36,14 @@ public class ExistentialRegistration extends Cluster {
     public void postProcess() {
         Element tempElement = DocumentHelper.createElement(ESXElementName.SIMPLE_TERM.toString().replace("-",""))
                 .addAttribute(ESXAttributeName.SPELLING,LambdaPi.patternVariable);
+        _Statics.currentTerm = new SimpleTerm(tempElement);
         String scope = LambdaPi.termWithAdjectives(adjectiveCluster,new SimpleTerm(tempElement));
-        String formula = LambdaPi.exQuantifier(LambdaPi.patternVariable,LambdaPi.OBJECT_TYPE,scope);
+        //TODO commented
+//        String formula = LambdaPi.exQuantifier(LambdaPi.patternVariable,LambdaPi.OBJECT_TYPE + " " + LambdaPi.patternVariable,scope);
+        String formula = LambdaPi.exQuantifier(LambdaPi.patternVariable,type.lpRepr().repr,scope);
         String name = "Cl_" + LambdaPi.normalizeMMLId(getElement().attributeValue(ESXAttributeName.POSITION));
         String args = LambdaPi.argsElement();
-        LambdaPi.addStatementWithProof(name,args,formula);
+        LambdaPi.addStatementWithProof(name,args,LambdaPi.allLociWithTypesAndFormula(formula));
         super.postProcess();
     }
 }

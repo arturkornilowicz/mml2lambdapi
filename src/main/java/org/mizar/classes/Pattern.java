@@ -12,7 +12,7 @@ import java.util.*;
 @Getter
 @ToString
 
-public class Pattern extends XMLElement {
+abstract public class Pattern extends XMLElement {
 
     // Added for computing loci
     private Map<Variable,Type> allLoci = new LinkedHashMap<>();
@@ -91,7 +91,9 @@ public class Pattern extends XMLElement {
     }
 
     @Override
-    public void postProcess() { super.postProcess(); }
+    public void postProcess() {
+        super.postProcess();
+    }
 
     @Override
     public Representation lpRepr() {
@@ -107,9 +109,13 @@ public class Pattern extends XMLElement {
         List<Variable> variables = new LinkedList<>();
         variables.addAll(_Statics.currentDefinitionItem.getVariables().keySet());
         Collections.reverse(variables);
+        String vr, tr;
         for (Variable variable: variables) {
-            result = LambdaPi.univQuantifier(variable.lpRepr().repr,_Statics.currentDefinitionItem.getVariables().get(variable).lpRepr().repr,result);
+            vr = variable.lpRepr().repr;
+            tr = _Statics.currentDefinitionItem.getVariables().get(variable).lpRepr(LambdaPi.createSimpleTerm(vr)).repr;
+            result = LambdaPi.univQuantifier(vr,tr,result);
         }
+        System.out.println(result);
         return result;
     }
 
@@ -194,5 +200,20 @@ public class Pattern extends XMLElement {
             string += Keyword.RB;
         }
         LambdaPi.addTextLn(LambdaPi.symbolWithDefinition(string,true));
+    }
+
+    abstract public List<String> allArgs();
+
+    public String addPatternUsage() {
+        String string = getSymbolRepresentation().repr + " ";
+
+        List<String> allArgs = allArgs();
+
+        //TODO compute correct loci
+        for (int i = 0; i < MML2LambdaPiApplication.allPatterns.arityOrigPattern(this,false) - allArgs().size(); i++) {
+            string += LambdaPi.DUMMY_ARG + " ";
+        }
+
+        return string + String.join(" ",allArgs);
     }
 }

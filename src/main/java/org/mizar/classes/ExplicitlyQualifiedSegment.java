@@ -4,6 +4,7 @@ import lombok.*;
 import org.dom4j.*;
 import org.mizar.lambdapi.Representation;
 import org.mizar.xml_names.*;
+import java.util.*;
 
 @Setter
 @Getter
@@ -44,5 +45,19 @@ public class ExplicitlyQualifiedSegment extends QualifiedSegment {
         for (Variable variable: variables.getVariables()) {
             _Statics.currentDefinitionItem.getVariables().put(variable,type);
         }
+    }
+
+    @Override
+    protected Type getDeclaredType() {
+        return this.getType();
+    }
+
+    @Override
+    protected Map<Variable,Type> getVariablesType() {
+        Map<Variable,Type> result = new LinkedHashMap<>();
+        for (Variable variable: variables.getVariables()) {
+            result.put(variable,type);
+        }
+        return result;
     }
 }

@@ -4,6 +4,8 @@ import lombok.*;
 import org.dom4j.*;
 import org.mizar.xml_names.*;
 
+import java.util.List;
+
 @Setter
 @Getter
 @ToString
@@ -34,5 +36,10 @@ public class AttributePattern extends Pattern {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public List<String> allArgs() {
+        return loci.allLoci();
     }
 }

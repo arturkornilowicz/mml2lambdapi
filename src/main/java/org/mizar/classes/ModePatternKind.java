@@ -33,7 +33,7 @@ public class ModePatternKind extends XMLElement {
     }
 
     @Override
-    public void process() {}
+    public void process() { super.process(); }
 
     @Override
     public void postProcess() {

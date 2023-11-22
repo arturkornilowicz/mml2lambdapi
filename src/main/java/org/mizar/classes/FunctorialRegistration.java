@@ -44,12 +44,12 @@ public class FunctorialRegistration extends Cluster {
         String formula = "";
         if (type != null) {
             // TODO add type processing
-            LambdaPi.addText(type.lpRepr().toString());
+//            LambdaPi.addText(type.lpRepr().toString());
         }
         formula += LambdaPi.termWithAdjectives(adjectiveCluster,term);
         String name = "Cl_" + LambdaPi.normalizeMMLId(getElement().attributeValue(ESXAttributeName.POSITION));
         String args = LambdaPi.argsElement();
-        LambdaPi.addStatementWithProof(name,args,formula);
+        LambdaPi.addStatementWithProof(name,args,LambdaPi.allLociWithTypesAndFormula(formula));
         super.postProcess();
     }
 }

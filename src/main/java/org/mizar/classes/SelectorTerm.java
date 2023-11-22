@@ -7,13 +7,10 @@ import org.dom4j.*;
 @Getter
 @ToString
 
-public class SelectorTerm extends Term {
-
-    private Term term;
+public class SelectorTerm extends TermWithArguments {
 
     public SelectorTerm(Element element) {
         super(element);
-        term = Term.buildTerm(element.elements().get(0));
     }
 
     @Override
@@ -22,9 +19,7 @@ public class SelectorTerm extends Term {
     }
 
     @Override
-    public void process() {
-        term.run();
-    }
+    public void process() { super.process(); }
 
     @Override
     public void postProcess() {

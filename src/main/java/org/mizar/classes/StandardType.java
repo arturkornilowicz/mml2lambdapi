@@ -20,7 +20,8 @@ public class StandardType extends Type {
     }
 
     @Override
-    public void preProcess() { super.preProcess();
+    public void preProcess() {
+        super.preProcess();
         setTypeSymbol(MML2LambdaPiApplication.translations.translation(getElement()).lpRepr().repr);
     }
 
@@ -38,13 +39,31 @@ public class StandardType extends Type {
     public Representation lpRepr() {
         String string = "";
         int arity = arguments.getArguments().size() ;
-        for (int a = 0; a < arity; a++) {
-            string += "(";
-        }
+//        for (int a = 0; a < arity; a++) {
+//            string += "(";
+//        }
         string += MML2LambdaPiApplication.translations.translation(getElement()).lpRepr() + " ";
         for (Term term: arguments.getArguments()) {
-            string += term.lpRepr() + ")";
+            string += term.lpRepr() + " "; //")"
         }
+        if (_Statics.currentTerm != null) {
+            string += _Statics.currentTerm.lpRepr().repr;
+        }
+        return new Representation(string);
+    }
+
+    @Override
+    public Representation lpRepr(Term subject) {
+        String string = "";
+        int arity = arguments.getArguments().size() ;
+//        for (int a = 0; a < arity; a++) {
+//            string += "(";
+//        }
+        string += MML2LambdaPiApplication.translations.translation(getElement()).lpRepr() + " ";
+        for (Term term: arguments.getArguments()) {
+            string += term.lpRepr() + " ";
+        }
+        string += subject.lpRepr().repr;
         return new Representation(string);
     }
 }

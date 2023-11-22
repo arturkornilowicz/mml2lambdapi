@@ -34,9 +34,7 @@ public class PartialDefiniens extends XMLElement {
     }
 
     @Override
-    public void preProcess() {
-        super.preProcess();
-    }
+    public void preProcess() { super.preProcess(); }
 
     @Override
     public void process() {
@@ -47,5 +45,4 @@ public class PartialDefiniens extends XMLElement {
     public void postProcess() {
         super.postProcess();
     }
-
 }

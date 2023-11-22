@@ -10,13 +10,10 @@ import org.mizar.xml_names.*;
 @Getter
 @ToString
 
-public class PrivateFunctorTerm extends Term {
-
-    private Arguments arguments;
+public class PrivateFunctorTerm extends TermWithArguments {
 
     public PrivateFunctorTerm(Element element) {
         super(element);
-        arguments = new Arguments(element.element(ESXElementName.ARGUMENTS));
     }
 
     @Override
@@ -26,7 +23,7 @@ public class PrivateFunctorTerm extends Term {
 
     @Override
     public void process() {
-        arguments.run();
+        super.process();
     }
 
     @Override
@@ -36,6 +33,6 @@ public class PrivateFunctorTerm extends Term {
 
     @Override
     public Representation lpRepr() {
-        return new Representation(LambdaPi.privateDefinition(this,arguments));
+        return new Representation(LambdaPi.privateDefinition(this,getArguments()));
     }
 }

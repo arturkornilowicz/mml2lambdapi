@@ -2,7 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.application.MML2LambdaPiApplication;
 import org.mizar.lambdapi.LambdaPi;
+import org.mizar.patterns.AllPatterns;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -11,14 +13,7 @@ import org.mizar.xml_names.*;
 
 public class FunctorDefinition extends Definition {
 
-    private TypeSpecification typeSpecification;
-
-    public FunctorDefinition(Element element) {
-        super(element);
-        if (element.element(ESXElementName.TYPE_SPECIFICATION) != null) {
-            typeSpecification = new TypeSpecification(element.element(ESXElementName.TYPE_SPECIFICATION));
-        }
-    }
+    public FunctorDefinition(Element element) { super(element); }
 
     @Override
     public void preProcess() {
@@ -27,20 +22,12 @@ public class FunctorDefinition extends Definition {
     }
 
     @Override
-    public void process() {
-        getRedefine().run();
-        getPattern().run();
-        if (typeSpecification != null) {
-            typeSpecification.run();
-        }
-        if (getDefiniens() != null) {
-            getDefiniens().run();
-            _Statics.currentDefinitionWithIT = getDefiniens().getElement().attributeValue(ESXAttributeName.SHAPE).equals("Formula-Expression");
-        }
-    }
+    public void process() { super.process(); }
 
     @Override
     public void postProcess() {
+        _Statics.computedPatternRepresentation = null;
+
         if (getDefiniens() != null) {
             if (_Statics.currentDefinitionWithIT) {
                 addDefiniendum();
@@ -50,19 +37,25 @@ public class FunctorDefinition extends Definition {
             if (getPattern().getElement().attributeValue(ESXAttributeName.SUPERFLUOUS) != null) {
                 superfluous = Integer.parseInt(getPattern().getElement().attributeValue(ESXAttributeName.SUPERFLUOUS));
             }
-            LambdaPi.addTextLn(LambdaPi.symbolWithRedefinition(getPattern(),superfluous));
+            //TODO be carefull with superfluous
+            superfluous = Integer.parseInt(getPattern().getElement().attributeValue(ESXAttributeName.ARITY)) - MML2LambdaPiApplication.allPatterns.arityOrigPattern(getPattern(),true);
+            LambdaPi.addTextLn(LambdaPi.symbolWithRedefinition(getPattern(), superfluous));
         }
         addDefiniens();
-        if (typeSpecification != null) {
+        if (getTypeSpecification() != null) {
+            //TODO commented
             LambdaPi.addComment("Type Specification");
-            addTypeSpecification();
+            LambdaPi.addComment("DUMMY Spec");
+
+            //TODO IMPORTANT launch
+//            addTypeSpecification();
         }
 //        super.postProcess();
     }
 
     private void addTypeSpecification() {
         String name = "TS_" + LambdaPi.normalizeMMLId(getElement().getParent().attributeValue(ESXAttributeName.POSITION));
-        String resultType = typeSpecification.lpRepr().repr;
+        String resultType = getTypeSpecification().lpRepr().repr;
         LambdaPi.addStatementWithProof(name,"",getPattern().patternToUniversalFormula(resultType));
     }
 }

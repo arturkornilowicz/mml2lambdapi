@@ -36,4 +36,12 @@ public class Loci extends XMLElement {
     public void postProcess() {
         super.postProcess();
     }
+
+    public List<String> allLoci() {
+        List<String> result = new ArrayList<>();
+        for (Locus locus: loci) {
+            result.add(locus.getElement().attributeValue(ESXAttributeName.SPELLING));
+        }
+        return result;
+    }
 }

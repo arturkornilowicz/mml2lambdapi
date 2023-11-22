@@ -35,7 +35,14 @@ public class FuncSynonym extends Item {
     @Override
     public void postProcess() {
         _Statics.setCurrentPattern(functorPattern);
-        functorPattern.addNotationPattern(getPatternShapedExpression().getPattern(),false);
+
+        //TODO
+
+        //functorPattern.addNotationPattern(getPatternShapedExpression().getPattern(),false);
+
+        String string = getPatternShapedExpression().getPattern().addPatternUsage();
+        LambdaPi.addTextLn(LambdaPi.symbolWithDefinition(string,true));
+
         super.postProcess();
     }
 }

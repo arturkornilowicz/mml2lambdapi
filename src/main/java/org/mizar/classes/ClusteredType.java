@@ -2,9 +2,7 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.application.MML2LambdaPiApplication;
-import org.mizar.lambdapi.LambdaPi;
-import org.mizar.lambdapi.Representation;
+import org.mizar.lambdapi.*;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -40,7 +38,18 @@ public class ClusteredType extends Type {
 
     @Override
     public Representation lpRepr() {
-        //TODO make a conjunction
-        return new Representation(LambdaPi.conjunction(adjectiveCluster.lpRepr().repr, type.lpRepr().repr));
+        String string = type.lpRepr().repr;
+        //TODO commented
+//        if (!_Statics.inExpandableType) {
+//            _Statics.currentTerm = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
+//            string += _Statics.currentTerm.lpRepr();
+//        }
+        return new Representation(LambdaPi.conjunction(string,adjectiveCluster.lpRepr().repr));
+    }
+
+    @Override
+    public Representation lpRepr(Term subject) {
+        String string = type.lpRepr(subject).repr;
+        return new Representation(LambdaPi.conjunction(string,adjectiveCluster.lpRepr(subject).repr));
     }
 }

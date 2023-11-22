@@ -3,8 +3,7 @@ package org.mizar.lambdapi;
 import java.io.*;
 import java.util.*;
 
-import org.dom4j.Element;
-import org.dom4j.Node;
+import org.dom4j.*;
 import org.mizar.application.MML2LambdaPiApplication;
 import org.mizar.classes.*;
 import org.mizar.misc.*;
@@ -23,6 +22,9 @@ public class LambdaPi {
     public static final String EQUALITY_PRED = "=_HIDDEN_1";
     public static final String OBJECT_TYPE = "object_HIDDEN_1";
     public static final String SET_TYPE = "set_HIDDEN_2";
+    public static final String DUMMY_ARG = "DUMMY_ARG";
+    public static final String DUMMY_FRAENKEL = "DUMMY_FRAENKEL";
+    public static final String DUMMY_REPRESENTATION = "REPRESENTATION";
 
     public static void addText(String string) {
         lpFileContent.add(string);
@@ -72,8 +74,38 @@ public class LambdaPi {
         if (MML2LambdaPiApplication.fileName.equalsIgnoreCase("hidden")) {
         }
     }
+    private void numbers() {
+        String numbers = """
+        
+        constant symbol zero : U;
+        constant symbol succ (x:U) : U;
+
+        builtin "0"  ≔ zero;
+        builtin "+1" ≔ succ;
+        """;
+        addTextLn(numbers);
+    }
 
     public void primitives() {
+        if (MML2LambdaPiApplication.fileName.toUpperCase().equals("HIDDEN")) {
+            addTextLn("\nsymbol " + DUMMY_FRAENKEL + " : " + Keyword.UNIVERSE + ";");
+            addTextLn("\nsymbol " + DUMMY_ARG + " : " + Keyword.UNIVERSE + ";");
+
+            addTextLn("\nsymbol " + DUMMY_REPRESENTATION + "_" + DUMMY_REPRESENTATION + " : " + Keyword.UNIVERSE + ";");
+
+            String ddd;
+            for (int i = 0; i <= 10; i++) {
+                ddd = "\nsymbol " + DUMMY_REPRESENTATION + "_" + DUMMY_REPRESENTATION + "_" + i +  " : " + Keyword.UNIVERSE;
+                for (int j = 0; j < i; j++) {
+                    ddd += " → " + Keyword.UNIVERSE;
+                }
+                ddd += ";";
+                addTextLn(ddd);
+            }
+
+            addTextLn("\nsymbol IT : " + Keyword.UNIVERSE + ";");
+            numbers();
+        }
         if (false) {
             // set membership
             addTextLn("symbol ∈ : U → U → U;");
@@ -136,7 +168,7 @@ public class LambdaPi {
         result += " ";
         result += _Statics.currentPattern.patternLoci(definition);
         result += Keyword.IS + " ";
-        result += prfFormula;
+        result += LambdaPi.allLociWithTypesAndFormula(prfFormula);
         result += Keyword.SEMICOLON;
         return result;
     }
@@ -167,18 +199,14 @@ public class LambdaPi {
                 pattern.getElement().attributeValue(ESXAttributeName.ABSOLUTEORIGPATTERNMMLID),
                 pattern.getElement().attributeValue(ESXAttributeName.ABSOLUTEORIGCONSTRMMLID));
 
-
-//        System.out.println("OLDS: " + oldSymbol);
         String newSymbol = _Statics.currentDefinitionSymbol
                 .replace(normalizeMMLId(pattern.getElement().attributeValue(ESXAttributeName.ABSOLUTEPATTERNMMLID)),
                         normalizeMMLId(pattern.getElement().attributeValue(ESXAttributeName.ABSOLUTEORIGPATTERNMMLID)));
         //newSymbol = pattern.patternUsage();
         //   newSymbol += oldSymbol.lpRepr().repr;
         String origFileName = pattern.getElement().attributeValue(ESXAttributeName.ABSOLUTEORIGPATTERNMMLID).replace(":", "_");
-//        System.out.println("VAL = " + origFileName);
         String[] number = pattern.getElement().attributeValue(ESXAttributeName.ABSOLUTEORIGPATTERNMMLID).replace(":", "_").split("_");
         newSymbol = oldSymbol + "_" + origFileName;// + "_" + number[number.length-1];
-//        System.out.println("NEWS: " + newSymbol);
         result += _Statics.currentDefinitionSymbol;
         if (_Statics.currentDefinitionWithIT) {
             result += Keyword.INTRODEF;
@@ -192,9 +220,8 @@ public class LambdaPi {
         } catch (Exception exception) {
 
         }
-//        System.out.println(superfl);
+        _Statics.computedPatternRepresentation = newSymbol + " " + _Statics.currentPattern.patternLoci(false, superfluous);
         result += newSymbol + " " + _Statics.currentPattern.patternLoci(false, superfluous);
-//        System.out.println("result = " + result);
         result += Keyword.SEMICOLON;
         return result;
     }
@@ -208,12 +235,18 @@ public class LambdaPi {
             return "";
         }
         // TODO Items with arguments
-        RelationFormula relationFormula = (RelationFormula) expression;
+        FormulaWithArguments relationFormula = (FormulaWithArguments) expression;
         String result = "";
-        boolean bracketed;
         result += MML2LambdaPiApplication.translations.translation(relationFormula.getElement()).lpRepr() + " ";
+
+        //TODO compute correct loci
+        for (int i = 0; i < MML2LambdaPiApplication.allPatterns.arityOrigPattern(relationFormula) - relationFormula.getArguments().getArguments().size(); i++) {
+            result += LambdaPi.DUMMY_ARG + " ";
+        }
+
+        boolean bracketed;
         for (Term term: relationFormula.getArguments().getArguments()) {
-            bracketed = !term.getElement().getName().equals(ESXElementName.SIMPLE_TERM);
+            bracketed = _Statics.bracketed(term);
             if (bracketed) {
                 result += Keyword.LB;
             }
@@ -231,17 +264,22 @@ public class LambdaPi {
             string += adjectiveCluster.getAttributes().get(0).lpRepr(term);
         } else {
             int i;
-            for (i = 0; i < adjectiveCluster.getAttributes().size() - 1; i++) {
-                string += Keyword.AND + " ";
-            }
+
+            string += Keyword.LB + " ";
+
             for (i = 0; i < adjectiveCluster.getAttributes().size() - 2; i++) {
-                string += Keyword.LB;
+                string += Keyword.AND + " " + Keyword.LB;
             }
+//            for (i = 0; i < adjectiveCluster.getAttributes().size() - 2; i++) {
+//                string += Keyword.LB;
+//            }
+            string += Keyword.AND + " ";
             string += adjectiveCluster.getAttributes().get(0).lpRepr(term) + " ";
             for (i = 1; i < adjectiveCluster.getAttributes().size() - 1; i++) {
                 string += adjectiveCluster.getAttributes().get(i).lpRepr(term) + " " + Keyword.RB;
             }
             string += adjectiveCluster.getAttributes().get(i).lpRepr(term);
+            string += Keyword.RB + " ";
         }
         return string;
     }
@@ -276,7 +314,7 @@ public class LambdaPi {
         }
         return result;
     }
-
+    
     public static void addStatementWithProof(String name, String args, String statement) {
         LambdaPi.addTextSp("\n" + Keyword.OPAQUE);
         LambdaPi.addTextSp(Keyword.SYMBOL);
@@ -308,7 +346,9 @@ public class LambdaPi {
 
     public static String quantifier(String quantifier, String connective, String variable, String type, String scope) {
         String result = quantifier + " " + variable + ", ";
-        result += connective + " " + bracketedExpression(type + " " + variable) + " ";
+        //TODO commented
+        result += connective + " " + bracketedExpression(type) + " ";
+//        result += connective + " " + bracketedExpression(type + " " + variable) + " ";
         result += bracketedExpression(scope);
         return result;
     }
@@ -383,5 +423,51 @@ public class LambdaPi {
             result += LambdaPi.bracketedExpression(variable.lpRepr().repr + " " + Keyword.SCOPE + " " + LambdaPi.signature(arity)) + " ";
         }
         return result;
+    }
+
+    public static SimpleTerm createSimpleTerm(String varname) {
+        Element element = DocumentHelper.createElement(ESXElementName.SIMPLE_TERM.toString().replace("-",""))
+                .addAttribute(ESXAttributeName.SPELLING, varname);
+        return new SimpleTerm(element);
+    }
+
+    public static void wrongRepresentation(Element element, Exception exception) {
+        String s = "--- Error in Representation of " + element.attributeValue(ESXAttributeName.XMLID);
+        System.out.println(s);
+        Errors.logException(exception, s);
+    }
+
+    public static void print(String string) {
+        System.out.println(string);
+    }
+
+
+    public static String computeCurrentLoci() {
+        String result = "";
+        List<String> types = new ArrayList<>();
+        for (Variable variable: _Statics.currentDefinitionItem.getVariables().keySet()) {
+            LambdaPi.print(variable.getElement().attributeValue(ESXAttributeName.SPELLING));
+        }
+        LambdaPi.print(LambdaPi.longBinaryConnective(Keyword.AND,types));
+        return LambdaPi.longBinaryConnective(Keyword.AND,types);
+    }
+
+    public static String allLociWithTypes() {
+        List<String> types = new ArrayList<>();
+        String vr;
+        for (Variable variable: _Statics.currentDefinitionItem.getVariables().keySet()) {
+            vr = variable.lpRepr().repr;
+            types.add(_Statics.currentDefinitionItem.getVariables().get(variable).lpRepr(LambdaPi.createSimpleTerm(vr)).repr);
+        }
+        return LambdaPi.longBinaryConnective(Keyword.AND,types);
+    }
+
+    public static String allLociWithTypesAndFormula(String scope) {
+        String allLoci = allLociWithTypes();
+        if (allLoci.equals("")) {
+            return scope;
+        } else {
+            return LambdaPi.implication(allLoci,scope);
+        }
     }
 }

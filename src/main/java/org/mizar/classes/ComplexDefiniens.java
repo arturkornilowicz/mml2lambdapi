@@ -46,8 +46,16 @@ public class ComplexDefiniens extends Definiens {
     public Representation lpRepr() {
         String string = "";
         string += partialDefiniensList.lpRepr().repr;
+//        LambdaPi.print(string);
         String guards = LambdaPi.negation(partialDefiniensList.guards());
-        string = LambdaPi.conjunction(string,LambdaPi.conjunction(guards,otherwise.lpRepr().repr));
+        Representation other = otherwise.lpRepr();
+        //TODO
+        if (other != null)
+        {
+//            System.out.println(other);
+            string = LambdaPi.conjunction(string, LambdaPi.conjunction(guards, other.repr));
+        }
+
 //        LambdaPi.addTextLn(Keyword.SYMBOL + " A " + Keyword.IS + " true;");
 //        LambdaPi.addTextLn(Keyword.SYMBOL + " B " + Keyword.IS + " true;");
 //        LambdaPi.addTextLn("type " +  string + ";");

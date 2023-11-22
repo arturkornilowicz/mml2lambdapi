@@ -2,24 +2,20 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Keyword;
-import org.mizar.lambdapi.LambdaPi;
-import org.mizar.lambdapi.Representation;
+import org.mizar.lambdapi.*;
 import org.mizar.xml_names.*;
 
 @Setter
 @Getter
 @ToString
 
-public class UniversalQuantifierFormula extends Formula {
+public class UniversalQuantifierFormula extends QuantifierFormula {
 
-    private VariableSegments variableSegments;
     private Restriction restriction;
     private Scope scope;
 
     public UniversalQuantifierFormula(Element element) {
         super(element);
-        variableSegments = new VariableSegments(element.element(ESXElementName.VARIABLE_SEGMENTS));
         if (element.element(ESXElementName.RESTRICTION) != null) {
             restriction = new Restriction(element.element(ESXElementName.RESTRICTION));
         }
@@ -33,7 +29,6 @@ public class UniversalQuantifierFormula extends Formula {
 
     @Override
     public void process() {
-        variableSegments.run();
         if (restriction != null) {
             restriction.run();
         }
@@ -47,13 +42,15 @@ public class UniversalQuantifierFormula extends Formula {
 
     @Override
     public Representation lpRepr() {
-        String string = variableSegments.lpRepr().repr;
+        String result = collectQuantifiers();
+        String types = LambdaPi.longBinaryConnective(Keyword.AND, collectVariables());
+        String formula = scope.lpRepr().repr;
         String restr = restriction != null ? restriction.lpRepr().repr : "";
         if (restr.equals("")) {
-            string += scope.lpRepr();
+            result += LambdaPi.implication(types,formula);
         } else {
-            string += LambdaPi.implication(restr,scope.lpRepr().repr);
+            result += LambdaPi.implication(types, LambdaPi.implication(restr,formula));
         }
-        return new Representation(string);
+        return new Representation(result);
     }
 }

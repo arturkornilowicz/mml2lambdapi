@@ -2,7 +2,6 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Representation;
 import org.mizar.misc.*;
 import org.mizar.xml_names.*;
 
@@ -45,8 +44,7 @@ public class Definiens extends XMLElement {
     }
 
     @Override
-    public void preProcess() { super.preProcess();
-    }
+    public void preProcess() { super.preProcess(); }
 
     @Override
     public void process() { super.process(); }
@@ -55,9 +53,4 @@ public class Definiens extends XMLElement {
     public void postProcess() {
         super.postProcess();
     }
-
-    @Override
-    public Representation lpRepr() {
-        return null;
-    } // TODO why null works
 }

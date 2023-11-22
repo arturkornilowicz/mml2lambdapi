@@ -7,6 +7,9 @@ import org.mizar.lambdapi.Representation;
 import org.mizar.misc.Errors;
 import org.mizar.xml_names.*;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Setter
 @Getter
 @ToString
@@ -53,5 +56,17 @@ public class FreeVariableSegment extends QualifiedSegment {
     @Override
     protected void splitSegmentToVariables() {
         _Statics.currentDefinitionItem.getVariables().put(variable,reservedDscrType.getType());
+    }
+
+    @Override
+    protected Type getDeclaredType() {
+        return this.reservedDscrType.getType();
+    }
+
+    @Override
+    protected Map<Variable, Type> getVariablesType() {
+        Map<Variable,Type> result = new LinkedHashMap<>();
+        result.put(variable,reservedDscrType.getType());
+        return result;
     }
 }

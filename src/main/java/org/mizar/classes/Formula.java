@@ -2,7 +2,6 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.LambdaPi;
 import org.mizar.misc.*;
 import org.mizar.xml_names.*;
 
@@ -10,17 +9,18 @@ import org.mizar.xml_names.*;
 @Getter
 @ToString
 
-public class Formula extends XMLElement {
+public class Formula extends XMLElement implements SmallExpression {
 
     public Formula(Element element) {
         super(element);
     }
 
     public static Formula buildFormula(Element element) {
-        if (!element.getName().equals(ESXElementName.UNIVERSAL_QUANTIFIER_FORMULA)) {
-            LambdaPi.addVariables = false;
-        }
         switch (element.getName()) {
+            case TIXElementName.ATTRIBUTIVE_FORMULA:
+                return new AssociativeConjunction(element);
+            case TIXElementName.ASSOCIATIVE_CONJUNCTION:
+                return new AssociativeConjunction(element);
             case ESXElementName.BICONDITIONAL_FORMULA:
                 return new BiconditionalFormula(element);
             case ESXElementName.CONDITIONAL_FORMULA:
@@ -49,10 +49,14 @@ public class Formula extends XMLElement {
                 return new PrivatePredicateFormula(element);
             case ESXElementName.RELATION_FORMULA:
                 return new RelationFormula(element);
+            case TIXElementName.SCHEME_PREDICATE_FORMULA:
+                return new SchemePredicateFormula(element);
             case ESXElementName.THESIS:
                 return new Thesis(element);
             case ESXElementName.UNIVERSAL_QUANTIFIER_FORMULA:
                 return new UniversalQuantifierFormula(element);
+            case TIXElementName.UNIVERSAL_QUANTIFIER:
+                return new UniversalQuantifier(element);
             default:
                 Errors.error(element, "Missing Element in buildFormula [" + element.getName() + "]");
                 return null;

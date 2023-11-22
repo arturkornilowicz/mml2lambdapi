@@ -5,6 +5,7 @@ import org.dom4j.*;
 import org.mizar.lambdapi.Keyword;
 import org.mizar.lambdapi.LambdaPi;
 import org.mizar.lambdapi.Representation;
+import org.mizar.xml_names.ESXAttributeName;
 
 @Setter
 @Getter
@@ -26,6 +27,7 @@ public class PartialPredicativeDefiniens extends PartialDefiniens {
 
     @Override
     public void process() {
+        super.process();
         formula.run();
     }
 
@@ -36,6 +38,8 @@ public class PartialPredicativeDefiniens extends PartialDefiniens {
 
     @Override
     public Representation lpRepr() {
-        return new Representation(LambdaPi.implication(getGuard().lpRepr().repr,formula.lpRepr().repr));
+        String guardS = getGuard().lpRepr().repr;
+        String formulaS = formula.lpRepr().repr;
+        return new Representation(LambdaPi.implication(guardS,formulaS));
     }
 }

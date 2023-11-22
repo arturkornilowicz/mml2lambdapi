@@ -1,5 +1,12 @@
 .idea/
+__*
+*.zip
+inputs/mml2lp.xml.test
 text/
+temp/
+test_lp/
+lp/
+lp.old/
 outputs/
 target/
 pom.xml.tag
@@ -13,5 +20,6 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 esx_errors.txt
+bledy.txt
 .DS_Store
 xboole_0/

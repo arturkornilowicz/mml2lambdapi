@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -33,5 +35,10 @@ public class SimpleFraenkelTerm extends Term {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return new Representation(LambdaPi.DUMMY_FRAENKEL);
     }
 }

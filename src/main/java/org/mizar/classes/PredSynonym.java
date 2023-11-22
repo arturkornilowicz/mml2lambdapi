@@ -36,7 +36,9 @@ public class PredSynonym extends Item {
     @Override
     public void postProcess() {
         _Statics.setCurrentPattern(predicatePattern);
-        predicatePattern.addNotationPattern(getPatternShapedExpression().getPattern(),false);
+//        predicatePattern.addNotationPattern(getPatternShapedExpression().getPattern(),false);
+        String string = getPatternShapedExpression().getPattern().addPatternUsage();
+        LambdaPi.addTextLn(LambdaPi.symbolWithDefinition(string,true));
         super.postProcess();
     }
 }

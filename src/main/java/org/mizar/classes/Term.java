@@ -9,7 +9,7 @@ import org.mizar.xml_names.*;
 @Getter
 @ToString
 
-public class Term extends XMLElement {
+public class Term extends XMLElement implements SmallExpression {
 
     public Term(Element element) {
         super(element);
@@ -21,10 +21,16 @@ public class Term extends XMLElement {
                 return new AggregateTerm(element);
             case ESXElementName.CIRCUMFIX_TERM:
                 return new CircumfixTerm(element);
+            case TIXElementName.CONSTANT:
+                return new Constant(element);
+            case TIXElementName.DEFCONSTANT:
+                return new DefConstant(element);
             case ESXElementName.FORGETFUL_FUNCTOR_TERM:
                 return new ForgetfulFunctorTerm(element);
             case ESXElementName.FRAENKEL_TERM:
                 return new FraenkelTerm(element);
+            case TIXElementName.FUNCTOR_TERM:
+                return new FunctorTerm(element);
             case ESXElementName.GLOBAL_CHOICE_TERM:
                 return new GlobalChoiceTerm(element);
             case ESXElementName.INFIX_TERM:
@@ -41,6 +47,8 @@ public class Term extends XMLElement {
                 return new PrivateFunctorTerm(element);
             case ESXElementName.QUALIFICATION_TERM:
                 return new QualificationTerm(element);
+            case TIXElementName.SCHEME_FUNCTOR_TERM:
+                return new SchemeFunctorTerm(element);
             case ESXElementName.SELECTOR_TERM:
                 return new SelectorTerm(element);
             case ESXElementName.SIMPLE_FRAENKEL_TERM:

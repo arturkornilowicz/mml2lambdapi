@@ -3,7 +3,7 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Representation;
+import org.mizar.lambdapi.*;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -41,11 +41,21 @@ public class AdjectiveCluster extends XMLElement {
     @Override
     public Representation lpRepr() {
         //TODO make a conjunction
-        String result = "";
-        for (Attribute attribute: attributes) {
-            result += attribute.lpRepr() + " ";
-        }
-        return new Representation(result);
+//        String result = "";
+//        for (Attribute attribute: attributes) {
+//            result += attribute.lpRepr() + " ";
+//        }
+//        return new Representation(result);
+        return new Representation(LambdaPi.termWithAdjectives(this,_Statics.currentTerm));
     }
 
+    public Representation lpRepr(Term subject) {
+        //TODO make a conjunction
+//        String result = "";
+//        for (Attribute attribute: attributes) {
+//            result += attribute.lpRepr() + " ";
+//        }
+//        return new Representation(result);
+        return new Representation(LambdaPi.termWithAdjectives(this,subject));
+    }
 }

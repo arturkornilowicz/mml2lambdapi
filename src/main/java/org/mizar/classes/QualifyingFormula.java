@@ -2,7 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Representation;
+import org.mizar.lambdapi.*;
+import org.mizar.xml_names.ESXAttributeName;
 
 @Setter
 @Getter
@@ -22,6 +23,7 @@ public class QualifyingFormula extends Formula {
     @Override
     public void preProcess() {
         super.preProcess();
+        _Statics.currentTerm = term;
     }
 
     @Override
@@ -35,8 +37,23 @@ public class QualifyingFormula extends Formula {
         super.postProcess();
     }
 
+    @Deprecated
+    //@Override
+    public Representation lpReprDep() {
+        String result = type.lpRepr().repr;
+        if (_Statics.bracketed(term)) {
+            result += Keyword.LB;
+        }
+        result += term.lpRepr().repr;
+        if (_Statics.bracketed(term)) {
+            result += Keyword.RB;
+        }
+        return new Representation(result);
+    }
+
     @Override
     public Representation lpRepr() {
-        return new Representation(type.lpRepr().repr + term.lpRepr().repr);
+        _Statics.currentTerm = term;
+        return new Representation(type.lpRepr().repr);
     }
 }

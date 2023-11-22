@@ -3,6 +3,9 @@ package org.mizar.classes;
 import java.util.*;
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.lambdapi.Representation;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -38,5 +41,15 @@ public class MultiRelationFormula extends Formula {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        List<String > formulas = new ArrayList<>();
+        formulas.add(formula.lpRepr().repr);
+        for (RightSideOfRelationFormula rightSideOfRelationFormula: getRightSideOfRelationFormulas()) {
+            formulas.add(rightSideOfRelationFormula.lpRepr().toString());
+        }
+        return new Representation(LambdaPi.longBinaryConnective(Keyword.AND,formulas));
     }
 }

@@ -3,9 +3,10 @@ package org.mizar.classes;
 import lombok.*;
 import org.dom4j.*;
 import org.mizar.application.MML2LambdaPiApplication;
-import org.mizar.lambdapi.Keyword;
-import org.mizar.lambdapi.Representation;
+import org.mizar.lambdapi.*;
 import org.mizar.xml_names.*;
+
+import java.util.Map;
 
 @Setter
 @Getter
@@ -36,24 +37,38 @@ public class Attribute extends XMLElement {
     }
 
     public Representation lpRepr(Term subject) {
-        String string = "";
-        boolean negated = getElement().attribute(ESXAttributeName.NONOCC) != null;
-        int arity = arguments.getArguments().size() + 1;
-        for (int a = 0; a < arity; a++) {
-            string += Keyword.LB;
-        }
-        if (negated) {
-            string += Keyword.NOT + " " + Keyword.LB;
-        }
-        string += MML2LambdaPiApplication.translations.translation(getElement()).lpRepr() + " ";
-        string += subject.lpRepr().repr + Keyword.RB;
-        for (Term term : arguments.getArguments()) {
-            string += term.lpRepr() + Keyword.RB;
-        }
-        if (negated) {
+        try {
+            String string = "" + Keyword.LB;
+            boolean negated = getElement().attribute(ESXAttributeName.NONOCC) != null;
+            int arity = arguments.getArguments().size();// + 1;
+//            for (int a = 0; a < arity; a++) {
+//                string += Keyword.LB;
+//            }
+            if (negated) {
+                string += Keyword.NOT + " " + Keyword.LB + " ";
+            }
+            string += MML2LambdaPiApplication.translations.translation(getElement()).lpRepr() + " ";
+
+
+            //TODO compute correct loci
+            for (int i = 0; i < MML2LambdaPiApplication.allPatterns.arityOrigPattern(this) - arguments.getArguments().size() - 1; i++) {
+                string += LambdaPi.DUMMY_ARG + " ";
+            }
+
+            for (Term term : arguments.getArguments()) {
+                string += term.lpRepr() + " "; // + Keyword.RB;
+            }
+            string += subject.lpRepr().repr + " ";// + Keyword.RB;
+            if (negated) {
+                string += " " + Keyword.RB;
+            }
             string += Keyword.RB;
+            return new Representation(string);
+        } catch (Exception exception) {
+            LambdaPi.wrongRepresentation(getElement(),exception);
+            exception.printStackTrace();
         }
-        return new Representation(string);
+        return null;
     }
 
     @Override

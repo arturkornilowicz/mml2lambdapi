@@ -38,6 +38,9 @@ public class OtherwiseEquational extends Otherwise {
 
     @Override
     public Representation lpRepr() {
-        return term.lpRepr();
+        if (term != null) {
+            return term.lpRepr();
+        }
+        return null;
     }
 }

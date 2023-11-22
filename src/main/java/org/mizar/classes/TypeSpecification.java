@@ -2,8 +2,7 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
-import org.mizar.lambdapi.Representation;
-import org.mizar.xml_names.ESXAttributeName;
+import org.mizar.lambdapi.*;
 
 @Setter
 @Getter
@@ -21,6 +20,10 @@ public class TypeSpecification extends XMLElement {
     @Override
     public void preProcess() {
         super.preProcess();
+        _Statics.inTypeSpecification = true;
+//        _Statics.currentTerm = new SimpleTerm(DocumentHelper.createElement(ESXElementName.SIMPLE_TERM.toString().replace("-",""))
+//                .addAttribute(ESXAttributeName.SPELLING, _Statics.currentDefinitionSymbol + " "));
+//        _Statics.currentTerm = null;
     }
 
     @Override
@@ -31,10 +34,20 @@ public class TypeSpecification extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+        _Statics.inTypeSpecification = false;
     }
 
     @Override
     public Representation lpRepr() {
-        return type.lpRepr();
+        _Statics.currentTerm = null;
+//        _Statics.currentTerm = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
+        Term subject = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
+        //LambdaPi.print(_Statics.currentDefinitionSymbol);
+        if (_Statics.computedPatternRepresentation == null) {
+            return type.lpRepr();
+        } else {
+            subject = LambdaPi.createSimpleTerm(_Statics.computedPatternRepresentation);
+            return type.lpRepr(subject);
+        }
     }
 }

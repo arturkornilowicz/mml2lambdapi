@@ -36,6 +36,6 @@ public class NegatedFormula extends Formula {
     @Override
     public Representation lpRepr() {
         String repr1 = getFormula().lpRepr().repr;
-        return new Representation(Keyword.NOT + " (" + repr1 + ")");
+        return new Representation(Keyword.NOT + " " + Keyword.LB + repr1 + Keyword.RB);
     }
 }

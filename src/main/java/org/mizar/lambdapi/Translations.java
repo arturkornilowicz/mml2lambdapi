@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import org.dom4j.*;
 import org.dom4j.io.*;
+import org.mizar.misc.Errors;
 import org.mizar.xml_names.*;
 
 public class Translations extends LinkedList<Translation> {
@@ -14,15 +15,26 @@ public class Translations extends LinkedList<Translation> {
         loadTranslations();
     }
 
-    private void loadTranslations() {
+    private void loadTranslations(String fileName) {
         try {
             System.out.println("Loading translations from " + fileName);
             SAXReader saxBuilder = new SAXReader();
             Document document = saxBuilder.read(new File(fileName));
-            for (Element element: document.getRootElement().elements("Translation")) {
+            for (Element element : document.getRootElement().elements("Translation")) {
                 this.add(new Translation(element));
             }
         } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void loadTranslations() {
+        try {
+            loadTranslations(fileName);
+            // Translations for test only
+            loadTranslations(fileName + ".add");
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -33,12 +45,15 @@ public class Translations extends LinkedList<Translation> {
             case ESXElementName.ATTRIBUTE_PATTERN: sort = "Attribute"; break;
             case ESXElementName.PREDICATE_PATTERN: sort = "Predicate"; break;
             case ESXElementName.RELATION_FORMULA: sort = "Predicate"; break;
+            case ESXElementName.RIGHTSIDEOF_RELATION_FORMULA: sort = "Predicate"; break;
             case ESXElementName.CIRCUMFIX_TERM: sort = "Functor"; break;
             case ESXElementName.INFIX_TERM: sort = "Functor"; break;
             case ESXElementName.CIRCUMFIXFUNCTOR_PATTERN: sort = "Functor"; break;
             case ESXElementName.INFIXFUNCTOR_PATTERN: sort = "Functor"; break;
+            case TIXElementName.SCHEME_FUNCTOR_TERM: sort = "Functor"; break;
             case ESXElementName.MODE_PATTERN: sort = "Mode"; break;
             case ESXElementName.STANDARD_TYPE: sort = "Mode"; break;
+            case TIXElementName.EXPANDABLE_TYPE: sort = "Mode"; break;
             default: sort = "ERROR";
         }
         for (Translation translation: this) {
@@ -54,10 +69,25 @@ public class Translations extends LinkedList<Translation> {
                     return translation;
             }
         }
-        throw new RuntimeException("Translation not found for "
+
+        //TODO commented
+//        throw new RuntimeException("Translation not found for "
+//                + element.getName() + " "
+//                + element.attributeValue(ESXAttributeName.ABSOLUTEPATTERNMMLID) + " "
+//                + element.attributeValue(ESXAttributeName.ABSOLUTECONSTRMMLID));
+
+
+        Errors.logException(new RuntimeException("Translation not found for "
                 + element.getName() + " "
                 + element.attributeValue(ESXAttributeName.ABSOLUTEPATTERNMMLID) + " "
-                + element.attributeValue(ESXAttributeName.ABSOLUTECONSTRMMLID));
+                + element.attributeValue(ESXAttributeName.ABSOLUTECONSTRMMLID))," ");
+        Translation dummy = get(0);
+        dummy.getElement().setAttributes(List.of(
+                DocumentHelper.createAttribute(dummy.getElement(),"sort",""),
+                DocumentHelper.createAttribute(dummy.getElement(),"absolutepatternMMLId",LambdaPi.DUMMY_REPRESENTATION),
+                DocumentHelper.createAttribute(dummy.getElement(),"absoluteconstrMMLId",""),
+                DocumentHelper.createAttribute(dummy.getElement(),"result",LambdaPi.DUMMY_REPRESENTATION)));
+        return dummy;
     }
 
     public Translation translation(String sort, String absolutePatternMMLId, String absoluteConstrMMLId) {
@@ -66,12 +96,15 @@ public class Translations extends LinkedList<Translation> {
             case ESXElementName.ATTRIBUTE_PATTERN: sort = "Attribute"; break;
             case ESXElementName.PREDICATE_PATTERN: sort = "Predicate"; break;
             case ESXElementName.RELATION_FORMULA: sort = "Predicate"; break;
+            case ESXElementName.RIGHTSIDEOF_RELATION_FORMULA: sort = "Predicate"; break;
             case ESXElementName.CIRCUMFIX_TERM: sort = "Functor"; break;
             case ESXElementName.INFIX_TERM: sort = "Functor"; break;
             case ESXElementName.CIRCUMFIXFUNCTOR_PATTERN: sort = "Functor"; break;
             case ESXElementName.INFIXFUNCTOR_PATTERN: sort = "Functor"; break;
+            case TIXElementName.SCHEME_FUNCTOR_TERM: sort = "Functor"; break;
             case ESXElementName.MODE_PATTERN: sort = "Mode"; break;
             case ESXElementName.STANDARD_TYPE: sort = "Mode"; break;
+            case TIXElementName.EXPANDABLE_TYPE: sort = "Mode"; break;
             default: ;
         }
         for (Translation translation: this) {
@@ -86,9 +119,23 @@ public class Translations extends LinkedList<Translation> {
                     return translation;
             }
         }
-        throw new RuntimeException("Translation not found for "
+
+        //TODO commented
+//        throw new RuntimeException("Translation not found for "
+//                + sort + " "
+//                + absolutePatternMMLId + " "
+//                + absoluteConstrMMLId);
+
+        Errors.logException(new RuntimeException("Translation not found for "
                 + sort + " "
                 + absolutePatternMMLId + " "
-                + absoluteConstrMMLId);
+                + absoluteConstrMMLId)," ");
+        Translation dummy = get(0);
+        dummy.getElement().setAttributes(List.of(
+                DocumentHelper.createAttribute(dummy.getElement(),"sort",""),
+                DocumentHelper.createAttribute(dummy.getElement(),"absolutepatternMMLId",LambdaPi.DUMMY_REPRESENTATION),
+                DocumentHelper.createAttribute(dummy.getElement(),"absoluteconstrMMLId",""),
+                DocumentHelper.createAttribute(dummy.getElement(),"result",LambdaPi.DUMMY_REPRESENTATION)));
+        return dummy;
     }
 }
