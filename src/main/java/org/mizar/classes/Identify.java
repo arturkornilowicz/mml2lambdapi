@@ -2,6 +2,8 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -24,6 +26,7 @@ public class Identify extends Item {
     @Override
     public void preProcess() {
         super.preProcess();
+        LambdaPi.addComment(ESXElementName.IDENTIFY);
     }
 
     @Override
@@ -35,6 +38,17 @@ public class Identify extends Item {
 
     @Override
     public void postProcess() {
+        String name = "Idf_" + LambdaPi.normalizeMMLId(getElement().getParent().attributeValue(ESXAttributeName.POSITION));
+        String args = LambdaPi.argsElement();
+        String formula = LambdaPi.EQUALITY_PRED + " "
+                + patt(leftPattern.getPattern()) + " "
+                + patt(rightPattern.getPattern());
+        formula = LambdaPi.allLociWithTypesAndFormula(formula);
+        LambdaPi.addStatementWithProof(name,args,formula);
         super.postProcess();
+    }
+
+    private String patt(Pattern pattern) {
+        return LambdaPi.bracketedExpression(pattern.addPatternUsage());
     }
 }

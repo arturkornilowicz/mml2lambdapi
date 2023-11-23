@@ -2,6 +2,7 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Representation;
 
 @Setter
 @Getter
@@ -27,5 +28,10 @@ public class Reduct extends XMLElement {
     @Override
     public void postProcess() {
         super.postProcess();
+    }
+
+    @Override
+    public Representation lpRepr() {
+        return term.lpRepr();
     }
 }

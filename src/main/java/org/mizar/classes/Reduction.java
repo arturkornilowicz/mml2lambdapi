@@ -2,6 +2,9 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.Keyword;
+import org.mizar.lambdapi.LambdaPi;
+import org.mizar.xml_names.ESXAttributeName;
 import org.mizar.xml_names.ESXElementName;
 
 @Setter
@@ -22,6 +25,7 @@ public class Reduction extends Item {
     @Override
     public void preProcess() {
         super.preProcess();
+        LambdaPi.addComment(ESXElementName.REDUCTION);
     }
 
     @Override
@@ -32,6 +36,11 @@ public class Reduction extends Item {
 
     @Override
     public void postProcess() {
+        String name = "Red_" + LambdaPi.normalizeMMLId(getElement().getParent().attributeValue(ESXAttributeName.POSITION));
+        String args = LambdaPi.argsElement();
+        String formula = LambdaPi.EQUALITY_PRED + " " + redex.lpRepr().repr + " " + reduct.lpRepr().repr;
+        formula = LambdaPi.allLociWithTypesAndFormula(formula);
+        LambdaPi.addStatementWithProof(name,args,formula);
         super.postProcess();
     }
 }

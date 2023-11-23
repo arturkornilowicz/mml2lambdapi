@@ -2,6 +2,9 @@
 __*
 *.zip
 inputs/mml2lp.xml.test
+inputs/mml2lp.xml.add
+check_lp_s.sh
+lambda_check.sh
 text/
 temp/
 test_lp/

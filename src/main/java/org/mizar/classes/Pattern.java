@@ -16,6 +16,7 @@ abstract public class Pattern extends XMLElement {
 
     // Added for computing loci
     private Map<Variable,Type> allLoci = new LinkedHashMap<>();
+    private List<String > allArgs;
     private Representation symbolRepresentation;
 
     private Integer arity = 0;
@@ -46,6 +47,7 @@ abstract public class Pattern extends XMLElement {
     public void preProcess() {
         super.preProcess();
         allLoci.putAll(_Statics.currentDefinitionItem.getVariables());
+        allArgs = allArgs();
         symbolRepresentation = MML2LambdaPiApplication.translations.translation(getElement()).lpRepr();
         if (!getElement().getParent().getName().equals(ESXElementName.PATTERN_SHAPED_EXPRESSION)) {
             MML2LambdaPiApplication.patternDescriptions
@@ -206,8 +208,6 @@ abstract public class Pattern extends XMLElement {
 
     public String addPatternUsage() {
         String string = getSymbolRepresentation().repr + " ";
-
-        List<String> allArgs = allArgs();
 
         //TODO compute correct loci
         for (int i = 0; i < MML2LambdaPiApplication.allPatterns.arityOrigPattern(this,false) - allArgs().size(); i++) {
