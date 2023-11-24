@@ -42,12 +42,15 @@ public class TypeSpecification extends XMLElement {
         _Statics.currentTerm = null;
 //        _Statics.currentTerm = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
         Term subject = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
-        //LambdaPi.print(_Statics.currentDefinitionSymbol);
-        if (_Statics.computedPatternRepresentation == null) {
-            return type.lpRepr();
-        } else {
-            subject = LambdaPi.createSimpleTerm(_Statics.computedPatternRepresentation);
-            return type.lpRepr(subject);
-        }
+        subject = LambdaPi.createSimpleTerm(_Statics.currentPattern.patternUsage());
+        return type.lpRepr(subject);
+
+//        if (_Statics.computedPatternRepresentation == null) {
+//            return type.lpRepr();
+//        } else {
+//            subject = LambdaPi.createSimpleTerm(_Statics.computedPatternRepresentation);
+//            Representation representation = type.lpRepr(subject);
+//            return representation;
+//        }
     }
 }

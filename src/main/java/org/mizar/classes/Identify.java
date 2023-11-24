@@ -49,6 +49,6 @@ public class Identify extends Item {
     }
 
     private String patt(Pattern pattern) {
-        return LambdaPi.bracketedExpression(pattern.addPatternUsage());
+        return LambdaPi.bracketedNotion(pattern.addPatternUsage());
     }
 }

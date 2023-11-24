@@ -43,12 +43,8 @@ public class FunctorDefinition extends Definition {
         }
         addDefiniens();
         if (getTypeSpecification() != null) {
-            //TODO commented
             LambdaPi.addComment("Type Specification");
-            LambdaPi.addComment("DUMMY Spec");
-
-            //TODO IMPORTANT launch
-//            addTypeSpecification();
+            addTypeSpecification();
         }
 //        super.postProcess();
     }

@@ -3,6 +3,7 @@ package org.mizar.classes;
 import lombok.*;
 import org.dom4j.*;
 import org.mizar.application.MML2LambdaPiApplication;
+import org.mizar.lambdapi.LambdaPi;
 import org.mizar.lambdapi.Representation;
 import org.mizar.xml_names.*;
 
@@ -55,15 +56,11 @@ public class StandardType extends Type {
     @Override
     public Representation lpRepr(Term subject) {
         String string = "";
-        int arity = arguments.getArguments().size() ;
-//        for (int a = 0; a < arity; a++) {
-//            string += "(";
-//        }
         string += MML2LambdaPiApplication.translations.translation(getElement()).lpRepr() + " ";
         for (Term term: arguments.getArguments()) {
             string += term.lpRepr() + " ";
         }
-        string += subject.lpRepr().repr;
+        string += LambdaPi.bracketedNotion(subject.lpRepr().repr);
         return new Representation(string);
     }
 }

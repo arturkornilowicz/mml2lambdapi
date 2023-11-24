@@ -100,14 +100,12 @@ abstract public class Pattern extends XMLElement {
     @Override
     public Representation lpRepr() {
         String string = "";
-        String symbol = symbolRepresentation.repr + " ";
-        string += symbol + " ";
         string += patternUsage() + " ";
         return new Representation(string);
     }
 
     public String patternToUniversalFormula(String type) {
-        String result = type + LambdaPi.bracketedExpression(patternUsage());
+        String result = type;// + LambdaPi.bracketedExpression(patternUsage());
         List<Variable> variables = new LinkedList<>();
         variables.addAll(_Statics.currentDefinitionItem.getVariables().keySet());
         Collections.reverse(variables);
@@ -117,7 +115,6 @@ abstract public class Pattern extends XMLElement {
             tr = _Statics.currentDefinitionItem.getVariables().get(variable).lpRepr(LambdaPi.createSimpleTerm(vr)).repr;
             result = LambdaPi.univQuantifier(vr,tr,result);
         }
-        System.out.println(result);
         return result;
     }
 
