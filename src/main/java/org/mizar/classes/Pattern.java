@@ -107,7 +107,7 @@ abstract public class Pattern extends XMLElement {
     }
 
     public String patternToUniversalFormula(String type) {
-        String result = type + LambdaPi.bracketedExpression(patternUsage());
+        String result = type; // + LambdaPi.bracketedNotion(patternUsage());
         List<Variable> variables = new LinkedList<>();
         variables.addAll(_Statics.currentDefinitionItem.getVariables().keySet());
         Collections.reverse(variables);

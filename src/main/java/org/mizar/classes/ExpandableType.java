@@ -78,7 +78,7 @@ public class ExpandableType extends Type {
         for (Term term: arguments.getArguments()) {
             result += term.lpRepr() + " ";
         }
-        result += subject.lpRepr().repr;
+        result += LambdaPi.bracketedNotion(subject.lpRepr().repr);
         return new Representation(result);
     }
 }

@@ -346,10 +346,8 @@ public class LambdaPi {
 
     public static String quantifier(String quantifier, String connective, String variable, String type, String scope) {
         String result = quantifier + " " + variable + ", ";
-        //TODO commented
-        result += connective + " " + bracketedExpression(type) + " ";
-//        result += connective + " " + bracketedExpression(type + " " + variable) + " ";
-        result += bracketedExpression(scope);
+        result += connective + " " + bracketedNotion(type) + " ";
+        result += bracketedNotion(scope);
         return result;
     }
 
@@ -364,8 +362,12 @@ public class LambdaPi {
         return Keyword.LB + expression + Keyword.RB;
     }
 
+    public static String bracketedNotion(String expression) {
+        return expression.contains(" ") ? Keyword.LB + expression + Keyword.RB : expression;
+    }
+
     public static String binaryConnective(String connective, String arg1, String arg2) {
-        return connective + " " + bracketedExpression(arg1) + " " + bracketedExpression(arg2);
+        return connective + " " + bracketedNotion(arg1) + " " + bracketedNotion(arg2);
     }
 
     public static String biimplication(String arg1, String arg2) {
@@ -385,7 +387,7 @@ public class LambdaPi {
     }
 
     public static String negation(String arg) {
-        return Keyword.NOT + " " + bracketedExpression(arg);
+        return Keyword.NOT + " " + bracketedNotion(arg);
     }
 
     public static String longBinaryConnective(String connective,List<String> conjuncts) {
@@ -395,7 +397,7 @@ public class LambdaPi {
         }
         result += conjuncts.get(0);
         for (int i = 1; i < conjuncts.size(); i++) {
-            result = connective + " " + bracketedExpression(result) + " " + bracketedExpression(conjuncts.get(i));
+            result = connective + " " + bracketedNotion(result) + " " + bracketedNotion(conjuncts.get(i));
         }
         return result;
     }
@@ -440,7 +442,6 @@ public class LambdaPi {
     public static void print(String string) {
         System.out.println(string);
     }
-
 
     public static String computeCurrentLoci() {
         String result = "";

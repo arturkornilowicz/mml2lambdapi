@@ -58,7 +58,7 @@ public class Attribute extends XMLElement {
             for (Term term : arguments.getArguments()) {
                 string += term.lpRepr() + " "; // + Keyword.RB;
             }
-            string += subject.lpRepr().repr + " ";// + Keyword.RB;
+            string += LambdaPi.bracketedNotion(subject.lpRepr().repr) + " ";// + Keyword.RB;
             if (negated) {
                 string += " " + Keyword.RB;
             }
