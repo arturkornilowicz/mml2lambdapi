@@ -56,10 +56,6 @@ public class StandardType extends Type {
     @Override
     public Representation lpRepr(Term subject) {
         String string = "";
-        int arity = arguments.getArguments().size() ;
-//        for (int a = 0; a < arity; a++) {
-//            string += "(";
-//        }
         string += MML2LambdaPiApplication.translations.translation(getElement()).lpRepr() + " ";
         for (Term term: arguments.getArguments()) {
             string += term.lpRepr() + " ";

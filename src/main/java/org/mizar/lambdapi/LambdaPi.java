@@ -218,10 +218,9 @@ public class LambdaPi {
         try {
             Integer.parseInt(pattern.getElement().attributeValue(ESXAttributeName.SUPERFLUOUS));
         } catch (Exception exception) {
-
         }
         _Statics.computedPatternRepresentation = newSymbol + " " + _Statics.currentPattern.patternLoci(false, superfluous);
-        result += newSymbol + " " + _Statics.currentPattern.patternLoci(false, superfluous);
+        result += _Statics.computedPatternRepresentation;
         result += Keyword.SEMICOLON;
         return result;
     }
