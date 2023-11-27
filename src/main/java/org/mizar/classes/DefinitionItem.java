@@ -17,6 +17,8 @@ public class DefinitionItem extends Item {
     private List<QualifiedSegment> segments = new LinkedList<>();
     private Map<Variable,Type> variables = new LinkedHashMap<>();
 
+    private List<Formula> permissiveAssumptions = new LinkedList<>();
+
     public DefinitionItem(Element element) {
         super(element);
         block = Block.buildBlock(element.element(ESXElementName.BLOCK));

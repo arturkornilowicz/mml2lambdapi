@@ -37,11 +37,7 @@ public class SimpleEquationalDefiniens extends Definiens {
     }
 
     @Override
-    public Representation lpRepr() {
-        String string = "";
-        string += LambdaPi.comment(getClass().getSimpleName() + "\n");
-        string += LambdaPi.symbolWithDefinition(term.lpRepr().repr,true);
-        return new Representation(string);
+    protected String definiensRepr() {
+        return term.lpRepr().repr;
     }
-
 }

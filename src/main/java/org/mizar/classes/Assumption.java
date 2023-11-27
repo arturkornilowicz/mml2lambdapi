@@ -36,7 +36,5 @@ public class Assumption extends Item {
     public void process() {}
 
     @Override
-    public void postProcess() {
-        super.postProcess();
-    }
+    public void postProcess() { super.postProcess(); }
 }

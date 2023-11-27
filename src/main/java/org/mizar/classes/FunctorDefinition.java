@@ -4,7 +4,6 @@ import lombok.*;
 import org.dom4j.*;
 import org.mizar.application.MML2LambdaPiApplication;
 import org.mizar.lambdapi.LambdaPi;
-import org.mizar.patterns.AllPatterns;
 import org.mizar.xml_names.*;
 
 @Setter

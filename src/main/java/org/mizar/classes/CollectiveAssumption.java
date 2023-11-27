@@ -20,6 +20,11 @@ public class CollectiveAssumption extends Assumption {
     @Override
     public void preProcess() {
         super.preProcess();
+        if (isExportable()) {
+            for (Proposition proposition: conditions.getPropositions()) {
+                _Statics.currentDefinitionItem.getPermissiveAssumptions().add(proposition.getFormula());
+            }
+        }
     }
 
     @Override
@@ -28,7 +33,5 @@ public class CollectiveAssumption extends Assumption {
     }
 
     @Override
-    public void postProcess() {
-        super.postProcess();
-    }
+    public void postProcess() { super.postProcess(); }
 }

@@ -4,6 +4,7 @@ import lombok.*;
 import org.dom4j.*;
 import org.mizar.lambdapi.*;
 import org.mizar.application.*;
+import org.mizar.xml_names.*;
 
 @AllArgsConstructor
 @ToString
@@ -37,5 +38,19 @@ public class XMLElement {
 
     public Representation lpRepr() {
         return new Representation(LambdaPi.unknown(getClass()));
+    }
+
+    public boolean isExportable() {
+        if (_Statics.currentDefinitionItem == null) {
+            return false;
+        }
+        Element temp = this.getElement();
+        while (!temp.getName().equals(ESXElementName.TEXT_PROPER)) {
+            if (temp.getName().equals(ESXElementName.BLOCK) && MML2LambdaPiApplication.blockNames.contains(temp.attributeValue(ESXAttributeName.KIND))) {
+                return false;
+            }
+            temp = temp.getParent();
+        }
+        return true;
     }
 }

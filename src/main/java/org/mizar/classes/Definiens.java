@@ -2,14 +2,16 @@ package org.mizar.classes;
 
 import lombok.*;
 import org.dom4j.*;
+import org.mizar.lambdapi.*;
 import org.mizar.misc.*;
 import org.mizar.xml_names.*;
+import java.util.*;
 
 @Setter
 @Getter
 @ToString
 
-public class Definiens extends XMLElement {
+abstract public class Definiens extends XMLElement {
 
     public Definiens(Element element) {
         super(element);
@@ -53,4 +55,25 @@ public class Definiens extends XMLElement {
     public void postProcess() {
         super.postProcess();
     }
+
+    @Override
+    public Representation lpRepr() {
+        String string = "";
+        LambdaPi.addComment(getClass().getSimpleName() + "\n");
+        String definiensS = definiensRepr();
+        if (_Statics.currentDefinitionItem.getPermissiveAssumptions().size() > 0) {
+            LambdaPi.addComment("Permissive definition\n");
+            List<String> formulas = new LinkedList<>();
+            for (Formula formula: _Statics.currentDefinitionItem.getPermissiveAssumptions()) {
+                formulas.add(formula.lpRepr().repr);
+            }
+            string = LambdaPi.implication(LambdaPi.longBinaryConnective(Keyword.AND,formulas),definiensS);
+        } else {
+            string = definiensS;
+        }
+        string = LambdaPi.symbolWithDefinition(string,true);
+        return new Representation(string);
+    }
+
+    abstract protected String definiensRepr();
 }

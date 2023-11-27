@@ -37,10 +37,7 @@ public class SimplePredicativeDefiniens extends Definiens {
     }
 
     @Override
-    public Representation lpRepr() {
-        String string = "";
-        string += LambdaPi.comment(getClass().getSimpleName() + "\n");
-        string += LambdaPi.symbolWithDefinition(formula.lpRepr().repr,true);
-        return new Representation(string);
+    protected String definiensRepr() {
+        return formula.lpRepr().repr;
     }
 }

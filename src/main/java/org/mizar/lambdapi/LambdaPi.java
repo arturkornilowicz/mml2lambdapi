@@ -443,7 +443,6 @@ public class LambdaPi {
         System.out.println(string);
     }
 
-
     public static String computeCurrentLoci() {
         String result = "";
         List<String> types = new ArrayList<>();
