@@ -471,4 +471,8 @@ public class LambdaPi {
             return LambdaPi.implication(allLoci,scope);
         }
     }
+
+    public static String typeSpecificationId() {
+        return _Statics.currentDefinitionSymbol + "_TS";
+    }
 }

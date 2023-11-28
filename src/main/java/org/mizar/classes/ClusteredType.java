@@ -39,9 +39,9 @@ public class ClusteredType extends Type {
     @Override
     public Representation lpRepr() {
         String string = type.lpRepr().repr;
-        //TODO commented
+//        TODO commented
 //        if (!_Statics.inExpandableType) {
-//            _Statics.currentTerm = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
+//            _Statics.currentTerm = _Statics.patternVariableTerm;
 //            string += _Statics.currentTerm.lpRepr();
 //        }
         return new Representation(LambdaPi.conjunction(string,adjectiveCluster.lpRepr().repr));

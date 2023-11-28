@@ -21,9 +21,6 @@ public class TypeSpecification extends XMLElement {
     public void preProcess() {
         super.preProcess();
         _Statics.inTypeSpecification = true;
-//        _Statics.currentTerm = new SimpleTerm(DocumentHelper.createElement(ESXElementName.SIMPLE_TERM.toString().replace("-",""))
-//                .addAttribute(ESXAttributeName.SPELLING, _Statics.currentDefinitionSymbol + " "));
-//        _Statics.currentTerm = null;
     }
 
     @Override
@@ -40,17 +37,7 @@ public class TypeSpecification extends XMLElement {
     @Override
     public Representation lpRepr() {
         _Statics.currentTerm = null;
-//        _Statics.currentTerm = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
-        Term subject = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
-        subject = LambdaPi.createSimpleTerm(_Statics.currentPattern.patternUsage());
+        Term subject = LambdaPi.createSimpleTerm(_Statics.currentPattern.patternUsage());
         return type.lpRepr(subject);
-
-//        if (_Statics.computedPatternRepresentation == null) {
-//            return type.lpRepr();
-//        } else {
-//            subject = LambdaPi.createSimpleTerm(_Statics.computedPatternRepresentation);
-//            Representation representation = type.lpRepr(subject);
-//            return representation;
-//        }
     }
 }

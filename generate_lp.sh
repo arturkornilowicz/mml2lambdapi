@@ -27,3 +27,5 @@ do
     nr=`expr $nr + 1`
     ./mml2lp.sh $TIX_FILES $i $OUTPUT # translator
 done
+
+(sed -E 's/(RTE  : java.lang.RuntimeException: Translation not found.+)/xxx/g' esx_errors.txt | grep RTE) > esx_errors_1.txt 

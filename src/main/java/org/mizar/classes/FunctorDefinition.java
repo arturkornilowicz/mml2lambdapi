@@ -42,15 +42,14 @@ public class FunctorDefinition extends Definition {
         }
         addDefiniens();
         if (getTypeSpecification() != null) {
-            LambdaPi.addComment("Type Specification");
             addTypeSpecification();
         }
 //        super.postProcess();
     }
 
     private void addTypeSpecification() {
-        String name = "TS_" + LambdaPi.normalizeMMLId(getElement().getParent().attributeValue(ESXAttributeName.POSITION));
+        LambdaPi.addComment("Type Specification");
         String resultType = getTypeSpecification().lpRepr().repr;
-        LambdaPi.addStatementWithProof(name,"",getPattern().patternToUniversalFormula(resultType));
+        LambdaPi.addStatementWithProof(LambdaPi.typeSpecificationId(),"",getPattern().patternToUniversalFormula(resultType));
     }
 }

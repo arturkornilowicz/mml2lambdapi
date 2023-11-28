@@ -87,7 +87,6 @@ public class Definition extends Item {
 
     @Override
     public void postProcess() {
-//        //if (definiens == null)
 
         addDefiniendum();
 
@@ -103,30 +102,14 @@ public class Definition extends Item {
             string += _Statics.currentPattern.patternLoci(true);
             string += Keyword.IS + " ";
             string += Keyword.LAMBDA + " " + LambdaPi.argU(LambdaPi.patternVariable) + ", ";
-            Term subject = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
+            Term subject = _Statics.patternVariableTerm;
             string += LambdaPi.allLociWithTypesAndFormula(expansionOfExpandableMode.lpRepr(subject).repr);
             string += Keyword.SEMICOLON;
             LambdaPi.addTextLn(string);
         }
 
-
-//        if (getDefiniens() != null) {
-//            if (_Statics.currentDefinitionWithIT) {
-//                addDefiniendum();
-//            }
-//        } else {
-//            int superfluous = 0;
-//            if (getPattern().getElement().attributeValue(ESXAttributeName.SUPERFLUOUS) != null) {
-//                superfluous = Integer.parseInt(getPattern().getElement().attributeValue(ESXAttributeName.SUPERFLUOUS));
-//            }
-//            LambdaPi.addTextLn(LambdaPi.symbolWithRedefinition(getPattern(),superfluous));
-//        }
-//        addDefiniens();
-
         if (getTypeSpecification() != null) {
-            //TODO add
-//            LambdaPi.addComment("Type Specification");
-//            addTypeSpecification();
+            addTypeSpecification();
         }
 
         if (this.getElement().getName().equals(ESXElementName.MODE_DEFINITION)) {
@@ -150,9 +133,11 @@ public class Definition extends Item {
     }
 
     private void addTypeSpecification() {
-        String name = "TS_" + LambdaPi.normalizeMMLId(getElement().getParent().attributeValue(ESXAttributeName.POSITION));
-        String resultType = getTypeSpecification().lpRepr().repr;
-        LambdaPi.addStatementWithProof(name,"",getPattern().patternToUniversalFormula(resultType));
+        LambdaPi.addComment("Type Specification");
+        Term subject = LambdaPi.createSimpleTerm(_Statics.currentPattern.patternUsage() + LambdaPi.patternVariable);
+        String formula = LambdaPi.allLociWithTypesAndFormula(typeSpecification.getType().lpRepr(subject).repr);
+        formula = LambdaPi.univQuantifier(LambdaPi.patternVariable,LambdaPi.OBJECT_TYPE + " " + LambdaPi.patternVariable,formula);
+        LambdaPi.addStatementWithProof(LambdaPi.typeSpecificationId(),_Statics.currentPattern.patternLoci(true),formula);
     }
 
     protected boolean expandableMode() {

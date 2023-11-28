@@ -1,6 +1,7 @@
 package org.mizar.classes;
 
 import org.mizar.application.MML2LambdaPiApplication;
+import org.mizar.lambdapi.LambdaPi;
 
 public class _Statics {
 
@@ -35,4 +36,6 @@ public class _Statics {
     public static boolean bracketed(Term term) {
         return !(term instanceof SimpleTerm || term instanceof NumeralTerm || term instanceof PlaceholderTerm);
     }
+
+    public static final SimpleTerm patternVariableTerm = LambdaPi.createSimpleTerm(LambdaPi.patternVariable);
 }
