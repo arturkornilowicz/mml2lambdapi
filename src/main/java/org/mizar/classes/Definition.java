@@ -123,10 +123,11 @@ public class Definition extends Item {
 //        }
 //        addDefiniens();
 
-//        if (getTypeSpecification() != null) {
+        if (getTypeSpecification() != null) {
+            //TODO add
 //            LambdaPi.addComment("Type Specification");
 //            addTypeSpecification();
-//        }
+        }
 
         if (this.getElement().getName().equals(ESXElementName.MODE_DEFINITION)) {
             _Statics.inModeDefinition = false;

@@ -29,6 +29,9 @@ public class SingleAssumption extends Assumption {
 
     @Override
     public void postProcess() {
+        if (isExportable()) {
+            _Statics.currentDefinitionItem.getPermissiveAssumptions().add(proposition.getFormula());
+        }
         super.postProcess();
     }
 }

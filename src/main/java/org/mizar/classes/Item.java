@@ -111,7 +111,7 @@ public class Item extends XMLElement {
     public void preProcess() {
         super.preProcess();
         _Statics.currentDefinitionWithIT = false; //TODO Move to NOTATION Class
-     }
+    }
 
     @Override
     public void process() {}

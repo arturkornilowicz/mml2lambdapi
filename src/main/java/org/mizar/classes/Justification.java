@@ -30,7 +30,9 @@ public class Justification extends XMLElement {
     }
 
     @Override
-    public void preProcess() { super.preProcess(); }
+    public void preProcess() {
+        super.preProcess();
+    }
 
     @Override
     public void process() {}

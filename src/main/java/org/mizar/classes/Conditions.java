@@ -31,7 +31,5 @@ public class Conditions extends XMLElement {
     }
 
     @Override
-    public void postProcess() {
-        super.postProcess();
-    }
+    public void postProcess() { super.postProcess(); }
 }

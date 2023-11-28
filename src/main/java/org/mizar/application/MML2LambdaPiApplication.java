@@ -25,6 +25,8 @@ public class MML2LambdaPiApplication extends XMLApplication {
     public static PatternDescriptions patternDescriptions = new PatternDescriptions();
     public static Environ environ;
     public static AllPatterns allPatterns = new AllPatterns();
+    public static List<String> blockNames = List.of("Now-Reasoning","Proof");
+
 
     @Override
     public XMLElement buildTree() {

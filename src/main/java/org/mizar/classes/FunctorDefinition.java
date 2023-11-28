@@ -4,7 +4,6 @@ import lombok.*;
 import org.dom4j.*;
 import org.mizar.application.MML2LambdaPiApplication;
 import org.mizar.lambdapi.LambdaPi;
-import org.mizar.patterns.AllPatterns;
 import org.mizar.xml_names.*;
 
 @Setter
@@ -43,12 +42,8 @@ public class FunctorDefinition extends Definition {
         }
         addDefiniens();
         if (getTypeSpecification() != null) {
-            //TODO commented
             LambdaPi.addComment("Type Specification");
-            LambdaPi.addComment("DUMMY Spec");
-
-            //TODO IMPORTANT launch
-//            addTypeSpecification();
+            addTypeSpecification();
         }
 //        super.postProcess();
     }

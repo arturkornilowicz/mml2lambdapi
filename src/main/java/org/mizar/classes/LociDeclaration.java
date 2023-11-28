@@ -30,6 +30,11 @@ public class LociDeclaration extends Item {
     public void preProcess() {
         super.preProcess();
         _Statics.inLociDeclaration = true;
+        if (conditions != null && isExportable()) {
+            for (Proposition proposition: conditions.getPropositions()) {
+                _Statics.currentDefinitionItem.getPermissiveAssumptions().add(proposition.getFormula());
+            }
+        }
     }
 
     @Override

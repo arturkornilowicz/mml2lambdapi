@@ -6,9 +6,9 @@
 OUTPUT=lp
 LARFILE=m.lar
 
-#TIX_FILES=/Users/artur/TIX/tix_mml
+#TIX_FILES=/Users/artur/TIX/tix_abs
 
-TIX_FILES=/Users/artur/Artur/MizarDevelop/PROJEKTY/TESTS/mmlesx/temp
+TIX_FILES=/Users/artur/Artur/MizarDevelop/PROJEKTY/TESTS/mmlesx/temp/
 
 if [ ! -d $OUTPUT ]
 then

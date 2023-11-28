@@ -14395,7 +14395,7 @@
   <Translation sort="Predicate" absolutepatternMMLId="SUBLEMMA:1" absoluteconstrMMLId="SUBLEMMA:1" result="BAR=" />
   <Translation sort="Attribute" absolutepatternMMLId="SUBSET_1:1" absoluteconstrMMLId="SUBSET_1:1" result="proper" />
   <Translation sort="Attribute" absolutepatternMMLId="SUBSET_1:2" absoluteconstrMMLId="ZFMISC_1:1" result="trivial" />
-  <Translation sort="Functor" absolutepatternMMLId="SUBSET_1:1" absoluteconstrMMLId="SUBSET_1:1" result="emptyS" />
+  <Translation sort="Functor" absolutepatternMMLId="SUBSET_1:1" absoluteconstrMMLId="SUBSET_1:1" result="∅" />
   <Translation sort="Functor" absolutepatternMMLId="SUBSET_1:2" absoluteconstrMMLId="SUBSET_1:2" result="Ω" />
   <Translation sort="Functor" absolutepatternMMLId="SUBSET_1:3" absoluteconstrMMLId="SUBSET_1:3" result="‵" />
   <Translation sort="Functor" absolutepatternMMLId="SUBSET_1:4" absoluteconstrMMLId="SUBSET_1:4" result="∪" />
