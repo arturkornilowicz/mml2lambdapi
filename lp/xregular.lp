@@ -4,42 +4,42 @@ require open lp.tarski;
 require open lp.xboole_0;
 require open lp.enumset1;
 
-opaque symbol Th_XREGULAR_1 : Prf (`forall X, `exists Y, and (∈_TARSKI_2 Y X ) (misses_XBOOLE_0_1 Y X )) ≔ 
+opaque symbol Th_XREGULAR_1 : Prf (`forall r21,  imp (and (set_HIDDEN_2 r21) ((not ( empty_XBOOLE_0_1 r21  )))) (`exists r9,  and (set_HIDDEN_2 r9) (and (∈_TARSKI_2 r9 r21 ) (misses_XBOOLE_0_1 r9 r21 )))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_2 : Prf (`forall X, `exists Y, and (∈_TARSKI_2 Y X ) (`forall Y1, imp (∈_TARSKI_2 Y1 Y ) (misses_XBOOLE_0_1 Y1 X ))) ≔ 
+opaque symbol Th_XREGULAR_2 : Prf (`forall r21,  imp (and (set_HIDDEN_2 r21) ((not ( empty_XBOOLE_0_1 r21  )))) (`exists r9,  and (set_HIDDEN_2 r9) (and (∈_TARSKI_2 r9 r21 ) (`forall r10,  imp (set_HIDDEN_2 r10) (imp (∈_TARSKI_2 r10 r9 ) (misses_XBOOLE_0_1 r10 r21 )))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_3 : Prf (`forall X, `exists Y, and (∈_TARSKI_2 Y X ) (`forall Y1, `forall Y2, imp (and (∈_TARSKI_2 Y1 Y2 ) (∈_TARSKI_2 Y2 Y )) (misses_XBOOLE_0_1 Y1 X ))) ≔ 
+opaque symbol Th_XREGULAR_3 : Prf (`forall r21,  imp (and (set_HIDDEN_2 r21) ((not ( empty_XBOOLE_0_1 r21  )))) (`exists r9,  and (set_HIDDEN_2 r9) (and (∈_TARSKI_2 r9 r21 ) (`forall r10,  `forall r11,  imp (and (set_HIDDEN_2 r10) (set_HIDDEN_2 r11)) (imp (and (∈_TARSKI_2 r10 r11 ) (∈_TARSKI_2 r11 r9 )) (misses_XBOOLE_0_1 r10 r21 )))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_4 : Prf (`forall X, `exists Y, and (∈_TARSKI_2 Y X ) (`forall Y1, `forall Y2, `forall Y3, imp (and (and (∈_TARSKI_2 Y1 Y2 ) (∈_TARSKI_2 Y2 Y3 )) (∈_TARSKI_2 Y3 Y )) (misses_XBOOLE_0_1 Y1 X ))) ≔ 
+opaque symbol Th_XREGULAR_4 : Prf (`forall r21,  imp (and (set_HIDDEN_2 r21) ((not ( empty_XBOOLE_0_1 r21  )))) (`exists r9,  and (set_HIDDEN_2 r9) (and (∈_TARSKI_2 r9 r21 ) (`forall r10,  `forall r11,  `forall r12,  imp (and (and (set_HIDDEN_2 r10) (set_HIDDEN_2 r11)) (set_HIDDEN_2 r12)) (imp (and (and (∈_TARSKI_2 r10 r11 ) (∈_TARSKI_2 r11 r12 )) (∈_TARSKI_2 r12 r9 )) (misses_XBOOLE_0_1 r10 r21 )))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_5 : Prf (`forall X, `exists Y, and (∈_TARSKI_2 Y X ) (`forall Y1, `forall Y2, `forall Y3, `forall Y4, imp (and (and (and (∈_TARSKI_2 Y1 Y2 ) (∈_TARSKI_2 Y2 Y3 )) (∈_TARSKI_2 Y3 Y4 )) (∈_TARSKI_2 Y4 Y )) (misses_XBOOLE_0_1 Y1 X ))) ≔ 
+opaque symbol Th_XREGULAR_5 : Prf (`forall r21,  imp (and (set_HIDDEN_2 r21) ((not ( empty_XBOOLE_0_1 r21  )))) (`exists r9,  and (set_HIDDEN_2 r9) (and (∈_TARSKI_2 r9 r21 ) (`forall r10,  `forall r11,  `forall r12,  `forall r13,  imp (and (and (and (set_HIDDEN_2 r10) (set_HIDDEN_2 r11)) (set_HIDDEN_2 r12)) (set_HIDDEN_2 r13)) (imp (and (and (and (∈_TARSKI_2 r10 r11 ) (∈_TARSKI_2 r11 r12 )) (∈_TARSKI_2 r12 r13 )) (∈_TARSKI_2 r13 r9 )) (misses_XBOOLE_0_1 r10 r21 )))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_6 : Prf (`forall X, `exists Y, and (∈_TARSKI_2 Y X ) (`forall Y1, `forall Y2, `forall Y3, `forall Y4, `forall Y5, imp (and (and (and (and (∈_TARSKI_2 Y1 Y2 ) (∈_TARSKI_2 Y2 Y3 )) (∈_TARSKI_2 Y3 Y4 )) (∈_TARSKI_2 Y4 Y5 )) (∈_TARSKI_2 Y5 Y )) (misses_XBOOLE_0_1 Y1 X ))) ≔ 
+opaque symbol Th_XREGULAR_6 : Prf (`forall r21,  imp (and (set_HIDDEN_2 r21) ((not ( empty_XBOOLE_0_1 r21  )))) (`exists r9,  and (set_HIDDEN_2 r9) (and (∈_TARSKI_2 r9 r21 ) (`forall r10,  `forall r11,  `forall r12,  `forall r13,  `forall r14,  imp (and (and (and (and (set_HIDDEN_2 r10) (set_HIDDEN_2 r11)) (set_HIDDEN_2 r12)) (set_HIDDEN_2 r13)) (set_HIDDEN_2 r14)) (imp (and (and (and (and (∈_TARSKI_2 r10 r11 ) (∈_TARSKI_2 r11 r12 )) (∈_TARSKI_2 r12 r13 )) (∈_TARSKI_2 r13 r14 )) (∈_TARSKI_2 r14 r9 )) (misses_XBOOLE_0_1 r10 r21 )))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_7 : Prf (`forall X1, `forall X2, `forall X3, not (and (and (∈_TARSKI_2 X1 X2 ) (∈_TARSKI_2 X2 X3 )) (∈_TARSKI_2 X3 X1 ))) ≔ 
+opaque symbol Th_XREGULAR_7 : Prf (`forall r3,  imp (set_HIDDEN_2 r3) (`forall r4,  imp (set_HIDDEN_2 r4) (`forall r5,  imp (set_HIDDEN_2 r5) (not (and (and (∈_TARSKI_2 r3 r4 ) (∈_TARSKI_2 r4 r5 )) (∈_TARSKI_2 r5 r3 )))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_8 : Prf (`forall X1, `forall X2, `forall X3, `forall X4, not (and (and (and (∈_TARSKI_2 X1 X2 ) (∈_TARSKI_2 X2 X3 )) (∈_TARSKI_2 X3 X4 )) (∈_TARSKI_2 X4 X1 ))) ≔ 
+opaque symbol Th_XREGULAR_8 : Prf (`forall r3,  imp (set_HIDDEN_2 r3) (`forall r4,  imp (set_HIDDEN_2 r4) (`forall r5,  imp (set_HIDDEN_2 r5) (`forall r6,  imp (set_HIDDEN_2 r6) (not (and (and (and (∈_TARSKI_2 r3 r4 ) (∈_TARSKI_2 r4 r5 )) (∈_TARSKI_2 r5 r6 )) (∈_TARSKI_2 r6 r3 ))))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_9 : Prf (`forall X1, `forall X2, `forall X3, `forall X4, `forall X5, not (and (and (and (and (∈_TARSKI_2 X1 X2 ) (∈_TARSKI_2 X2 X3 )) (∈_TARSKI_2 X3 X4 )) (∈_TARSKI_2 X4 X5 )) (∈_TARSKI_2 X5 X1 ))) ≔ 
+opaque symbol Th_XREGULAR_9 : Prf (`forall r3,  imp (set_HIDDEN_2 r3) (`forall r4,  imp (set_HIDDEN_2 r4) (`forall r5,  imp (set_HIDDEN_2 r5) (`forall r6,  imp (set_HIDDEN_2 r6) (`forall r7,  imp (set_HIDDEN_2 r7) (not (and (and (and (and (∈_TARSKI_2 r3 r4 ) (∈_TARSKI_2 r4 r5 )) (∈_TARSKI_2 r5 r6 )) (∈_TARSKI_2 r6 r7 )) (∈_TARSKI_2 r7 r3 )))))))) ≔ 
 begin
   abort;
 
-opaque symbol Th_XREGULAR_10 : Prf (`forall X1, `forall X2, `forall X3, `forall X4, `forall X5, `forall X6, not (and (and (and (and (and (∈_TARSKI_2 X1 X2 ) (∈_TARSKI_2 X2 X3 )) (∈_TARSKI_2 X3 X4 )) (∈_TARSKI_2 X4 X5 )) (∈_TARSKI_2 X5 X6 )) (∈_TARSKI_2 X6 X1 ))) ≔ 
+opaque symbol Th_XREGULAR_10 : Prf (`forall r3,  imp (set_HIDDEN_2 r3) (`forall r4,  imp (set_HIDDEN_2 r4) (`forall r5,  imp (set_HIDDEN_2 r5) (`forall r6,  imp (set_HIDDEN_2 r6) (`forall r7,  imp (set_HIDDEN_2 r7) (`forall r8,  imp (set_HIDDEN_2 r8) (not (and (and (and (and (and (∈_TARSKI_2 r3 r4 ) (∈_TARSKI_2 r4 r5 )) (∈_TARSKI_2 r5 r6 )) (∈_TARSKI_2 r6 r7 )) (∈_TARSKI_2 r7 r8 )) (∈_TARSKI_2 r8 r3 ))))))))) ≔ 
 begin
   abort;

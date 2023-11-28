@@ -12,7 +12,6 @@ public class _Statics {
     public static boolean currentDefinitionWithIT;
     public static String computedPatternRepresentation;
     public static Term currentTerm;
-
     public static boolean inLociDeclaration;
     public static boolean inTypeSpecification;
     public static boolean inModeDefinition;

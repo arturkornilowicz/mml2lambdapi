@@ -5,89 +5,89 @@ require open lp.xtuple_0;
 
 // Scheme
 
-opaque symbol Sch_Separation_1 (A : U) (P : U → U)  : 
-Prf (`exists X, `forall x, iff (∈_TARSKI_2 x X ) (and (∈_TARSKI_2 x (A  )) (P x ))) ≔ 
+opaque symbol Sch_XFAMILY_1 (sf1 : U) (sp1 : U → U)  : 
+Prf (`exists b1,  and (set_HIDDEN_2 b1) (`forall b2,  imp (set_HIDDEN_2 b2) (iff (∈_TARSKI_2 b2 b1 ) (and (∈_TARSKI_2 b2 (sf1  )) ((sp1 b2 )))))) ≔ 
 begin
   abort;
 
 // Scheme
 
-opaque symbol Sch_Extensionality_2 (X : U) (Y : U) (P : U → U)  : 
-Prf (`forall x, iff (∈_TARSKI_2 x (X  )) (P x )) →
-Prf (`forall x, iff (∈_TARSKI_2 x (Y  )) (P x )) → 
-Prf (=_HIDDEN_1 (X  )(Y  )) ≔ 
+opaque symbol Sch_XFAMILY_2 (sf2 : U) (sf3 : U) (sp2 : U → U)  : 
+Prf (`forall b21,  imp (set_HIDDEN_2 b21) (iff (∈_TARSKI_2 b21 (sf2  )) ((sp2 b21 )))) →
+Prf (`forall b23,  imp (set_HIDDEN_2 b23) (iff (∈_TARSKI_2 b23 (sf3  )) ((sp2 b23 )))) → 
+Prf (=_HIDDEN_1 (sf2  )(sf3  )) ≔ 
 begin
   abort;
 
 // Scheme
 
-opaque symbol Sch_SetEq_3 (P : U → U)  : 
-Prf (`forall X1, `forall X2, imp (and (`forall x, iff (∈_TARSKI_2 x X1 ) (P x )) (`forall x, iff (∈_TARSKI_2 x X2 ) (P x ))) (=_HIDDEN_1 X1 X2 )) ≔ 
+opaque symbol Sch_XFAMILY_3 (sp3 : U → U)  : 
+Prf (`forall b33, `forall b34,  imp (and (set_HIDDEN_2 b33) (set_HIDDEN_2 b34)) (imp (and (`forall b35,  imp (set_HIDDEN_2 b35) (iff (∈_TARSKI_2 b35 b33 ) ((sp3 b35 )))) (`forall b36,  imp (set_HIDDEN_2 b36) (iff (∈_TARSKI_2 b36 b34 ) ((sp3 b36 ))))) (=_HIDDEN_1 b33 b34 ))) ≔ 
 begin
   abort;
 
 // Redefinition
 
 // Functor
-symbol '1_XFAMILY_1 (x:U) ≔ '1_XTUPLE_0_1 x ;
+symbol '1_XFAMILY_1 (v47:U) ≔ '1_XTUPLE_0_1 v47 ;
 
 // Type Specification
 
-opaque symbol TS_80_14 : Prf (`forall x, imp (object_HIDDEN_1  x) (set_HIDDEN_2 ('1_XFAMILY_1 x ))) ≔ 
+opaque symbol TS_91_8 : Prf (`forall v47, imp (object_HIDDEN_1 v47) (set_HIDDEN_2 ('1_XFAMILY_1 v47 ))) ≔ 
 begin
   abort;
 
 // Redefinition
 
 // Functor
-symbol '2_XFAMILY_2 (x:U) ≔ '2_XTUPLE_0_2 x ;
+symbol '2_XFAMILY_2 (v47:U) ≔ '2_XTUPLE_0_2 v47 ;
 
 // Type Specification
 
-opaque symbol TS_82_14 : Prf (`forall x, imp (object_HIDDEN_1  x) (set_HIDDEN_2 ('2_XFAMILY_2 x ))) ≔ 
+opaque symbol TS_94_8 : Prf (`forall v47, imp (object_HIDDEN_1 v47) (set_HIDDEN_2 ('2_XFAMILY_2 v47 ))) ≔ 
 begin
   abort;
 
 // Redefinition
 
 // Functor
-symbol '1_3_XFAMILY_3 (x:U) ≔ '1_3_XTUPLE_0_4 x ;
+symbol '1_3_XFAMILY_3 (v48:U) ≔ '1_3_XTUPLE_0_4 v48 ;
 
 // Type Specification
 
-opaque symbol TS_88_15 : Prf (`forall x, imp (object_HIDDEN_1  x) (set_HIDDEN_2 ('1_3_XFAMILY_3 x ))) ≔ 
+opaque symbol TS_101_8 : Prf (`forall v48, imp (object_HIDDEN_1 v48) (set_HIDDEN_2 ('1_3_XFAMILY_3 v48 ))) ≔ 
 begin
   abort;
 
 // Redefinition
 
 // Functor
-symbol '2_3_XFAMILY_4 (x:U) ≔ '2_3_XTUPLE_0_5 x ;
+symbol '2_3_XFAMILY_4 (v48:U) ≔ '2_3_XTUPLE_0_5 v48 ;
 
 // Type Specification
 
-opaque symbol TS_90_15 : Prf (`forall x, imp (object_HIDDEN_1  x) (set_HIDDEN_2 ('2_3_XFAMILY_4 x ))) ≔ 
+opaque symbol TS_104_8 : Prf (`forall v48, imp (object_HIDDEN_1 v48) (set_HIDDEN_2 ('2_3_XFAMILY_4 v48 ))) ≔ 
 begin
   abort;
 
 // Redefinition
 
 // Functor
-symbol '1_4_XFAMILY_5 (x:U) ≔ '1_4_XTUPLE_0_8 x ;
+symbol '1_4_XFAMILY_5 (v49:U) ≔ '1_4_XTUPLE_0_8 v49 ;
 
 // Type Specification
 
-opaque symbol TS_96_15 : Prf (`forall x, imp (object_HIDDEN_1  x) (set_HIDDEN_2 ('1_4_XFAMILY_5 x ))) ≔ 
+opaque symbol TS_111_8 : Prf (`forall v49, imp (object_HIDDEN_1 v49) (set_HIDDEN_2 ('1_4_XFAMILY_5 v49 ))) ≔ 
 begin
   abort;
 
 // Redefinition
 
 // Functor
-symbol '2_4_XFAMILY_6 (x:U) ≔ '2_4_XTUPLE_0_9 x ;
+symbol '2_4_XFAMILY_6 (v49:U) ≔ '2_4_XTUPLE_0_9 v49 ;
 
 // Type Specification
 
-opaque symbol TS_98_15 : Prf (`forall x, imp (object_HIDDEN_1  x) (set_HIDDEN_2 ('2_4_XFAMILY_6 x ))) ≔ 
+opaque symbol TS_114_8 : Prf (`forall v49, imp (object_HIDDEN_1 v49) (set_HIDDEN_2 ('2_4_XFAMILY_6 v49 ))) ≔ 
 begin
   abort;
