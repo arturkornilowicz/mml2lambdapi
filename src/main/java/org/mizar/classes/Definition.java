@@ -93,14 +93,14 @@ public class Definition extends Item {
         if (!expandableMode()) {
             addDefiniens();
         } else {
-            String string = Keyword.SYMBOL + " ";
+            String string = "\n" + Keyword.SYMBOL + " ";
             string += _Statics.currentDefinitionSymbol + Keyword.INTRODEF;
             if (_Statics.currentDefinitionWithIT) {
                 string += Keyword.INTRODEF;
             }
             string += " ";
             string += _Statics.currentPattern.patternLoci(true);
-            string += Keyword.IS + " ";
+            string += LambdaPi.addIS();
             string += Keyword.LAMBDA + " " + LambdaPi.argU(LambdaPi.patternVariable) + ", ";
             Term subject = _Statics.patternVariableTerm;
             string += LambdaPi.allLociWithTypesAndFormula(expansionOfExpandableMode.lpRepr(subject).repr);

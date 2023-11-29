@@ -17,6 +17,7 @@ public class LambdaPi {
     public static boolean addVariables = false;
     public static final String priority = "10";
     public static Integer schemeNumber = 0;
+    private static Integer printLevel = 1;
 
     public static final String patternVariable = "a";
     public static final String EQUALITY_PRED = "=_HIDDEN_1";
@@ -25,6 +26,14 @@ public class LambdaPi {
     public static final String DUMMY_ARG = "DUMMY_ARG";
     public static final String DUMMY_FRAENKEL = "DUMMY_FRAENKEL";
     public static final String DUMMY_REPRESENTATION = "REPRESENTATION";
+
+    private static String spaces() {
+        String result = "";
+        for (int i = 0; i <= 2*printLevel; i++) {
+            result += " ";
+        }
+        return result;
+    }
 
     public static void addText(String string) {
         lpFileContent.add(string);
@@ -50,6 +59,10 @@ public class LambdaPi {
 
     public static String normalizeMMLId(String id) {
         return id.replace(":", "_").replace("\\", "_");
+    }
+
+    public static String addIS() {
+        return "\n" + Keyword.IS + " ";
     }
 
     private void addEnviron() {
@@ -167,7 +180,7 @@ public class LambdaPi {
         }
         result += " ";
         result += _Statics.currentPattern.patternLoci(definition);
-        result += Keyword.IS + " ";
+        result += LambdaPi.addIS();
         result += LambdaPi.allLociWithTypesAndFormula(prfFormula);
         result += Keyword.SEMICOLON;
         return result;
@@ -213,7 +226,7 @@ public class LambdaPi {
         }
         result += " ";
         result += _Statics.currentPattern.patternLoci(true);
-        result += Keyword.IS + " ";
+        result += LambdaPi.addIS();
         int superfl = 0;
         try {
             Integer.parseInt(pattern.getElement().attributeValue(ESXAttributeName.SUPERFLUOUS));
@@ -320,11 +333,11 @@ public class LambdaPi {
         LambdaPi.addTextSp(Keyword.SYMBOL);
         LambdaPi.addTextSp(name);
         if (!args.equals("")) {
-            LambdaPi.addTextSp(args);
+            LambdaPi.addText(args);
         }
-        LambdaPi.addTextSp(Keyword.SCOPE);
+        LambdaPi.addTextLn(Keyword.SCOPE);
         LambdaPi.addTextSp(prfFormula(statement));
-        LambdaPi.addTextSp(Keyword.IS);
+        LambdaPi.addTextSp(LambdaPi.addIS());
         LambdaPi.addBeginAbort();
     }
 
@@ -340,12 +353,12 @@ public class LambdaPi {
             LambdaPi.addTextSp(assumptions);
         }
         LambdaPi.addTextSp("\n" + prfFormula(statement));
-        LambdaPi.addTextSp(Keyword.IS);
+        LambdaPi.addTextSp(LambdaPi.addIS());
         LambdaPi.addBeginAbort();
     }
 
     public static String quantifier(String quantifier, String connective, String variable, String type, String scope) {
-        String result = quantifier + " " + variable + ", ";
+        String result = "\n"+ quantifier + " " + variable + ", ";
         result += connective + " " + bracketedNotion(type) + " ";
         result += bracketedNotion(scope);
         return result;
@@ -368,6 +381,13 @@ public class LambdaPi {
 
     public static String binaryConnective(String connective, String arg1, String arg2) {
         return connective + " " + bracketedNotion(arg1) + " " + bracketedNotion(arg2);
+//        String result = "\n" + spaces() + connective + "\n";
+//        printLevel++;
+//        result += spaces() + bracketedNotion(arg1);
+//        result += "\n";
+//        result += spaces() + bracketedNotion(arg2);
+//        printLevel--;
+//        return result;
     }
 
     public static String biimplication(String arg1, String arg2) {
