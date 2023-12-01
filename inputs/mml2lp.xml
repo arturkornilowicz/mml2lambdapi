@@ -7127,6 +7127,7 @@
   <Translation sort="Predicate" absolutepatternMMLId="INT_1:1" absoluteconstrMMLId="INT_1:1" result="divides" />
   <Translation sort="Predicate" absolutepatternMMLId="INT_1:2" absoluteconstrMMLId="INT_1:2" result="are_congruent_mod" />
   <Translation sort="Predicate" absolutepatternMMLId="INT_1:3" absoluteconstrMMLId="INT_1:2" result="are_congruent_mod" />
+  <Translation sort="Mode" absolutepatternMMLId="INT_2:1" absoluteconstrMMLId="INT_2:1" result="Prime" />
   <Translation sort="Attribute" absolutepatternMMLId="INT_2:1" absoluteconstrMMLId="INT_2:1" result="prime" />
   <Translation sort="Functor" absolutepatternMMLId="INT_2:1" absoluteconstrMMLId="INT_2:1" result="BARDOT" />
   <Translation sort="Functor" absolutepatternMMLId="INT_2:2" absoluteconstrMMLId="INT_2:2" result="lcm" />
@@ -16492,10 +16493,10 @@
   <Translation sort="Mode" absolutepatternMMLId="ZF_REFLE:1" result="Subclass" />
   <Translation sort="Mode" absolutepatternMMLId="ZF_REFLE:2" result="DOMAIN-Sequence" />
   <Translation sort="Attribute" absolutepatternMMLId="ZFMISC_1:1" absoluteconstrMMLId="ZFMISC_1:1" result="trivial" />
+  <Translation sort="Functor" absolutepatternMMLId="ZFMISC_1:1" absoluteconstrMMLId="ZFMISC_1:1" result="bool" />
   <Translation sort="Functor" absolutepatternMMLId="ZFMISC_1:2" absoluteconstrMMLId="ZFMISC_1:2" result="Cartesian" />
   <Translation sort="Functor" absolutepatternMMLId="ZFMISC_1:3" absoluteconstrMMLId="ZFMISC_1:3" result="Cartesian" />
   <Translation sort="Functor" absolutepatternMMLId="ZFMISC_1:4" absoluteconstrMMLId="ZFMISC_1:4" result="Cartesian" />
-  <Translation sort="Functor" absolutepatternMMLId="ZFMISC_1:1" absoluteconstrMMLId="ZFMISC_1:1" result="bool" />
   <Translation sort="Predicate" absolutepatternMMLId="ZFMISC_1:1" absoluteconstrMMLId="ZFMISC_1:1" result="are_mutually_distinct" />
   <Translation sort="Predicate" absolutepatternMMLId="ZFMISC_1:2" absoluteconstrMMLId="ZFMISC_1:2" result="are_mutually_distinct" />
   <Translation sort="Predicate" absolutepatternMMLId="ZFMISC_1:3" absoluteconstrMMLId="ZFMISC_1:3" result="are_mutually_distinct" />

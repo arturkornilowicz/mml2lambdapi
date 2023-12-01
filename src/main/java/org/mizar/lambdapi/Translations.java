@@ -38,24 +38,28 @@ public class Translations extends LinkedList<Translation> {
         }
     }
 
+    private String sort(String name) {
+        return switch (name) {
+            case ESXElementName.ATTRIBUTE -> "Attribute";
+            case ESXElementName.ATTRIBUTE_PATTERN -> "Attribute";
+            case ESXElementName.PREDICATE_PATTERN -> "Predicate";
+            case ESXElementName.RELATION_FORMULA -> "Predicate";
+            case ESXElementName.RIGHTSIDEOF_RELATION_FORMULA -> "Predicate";
+            case ESXElementName.CIRCUMFIX_TERM -> "Functor";
+            case TIXElementName.FUNCTOR_TERM -> "Functor";
+            case ESXElementName.INFIX_TERM -> "Functor";
+            case ESXElementName.CIRCUMFIXFUNCTOR_PATTERN -> "Functor";
+            case ESXElementName.INFIXFUNCTOR_PATTERN -> "Functor";
+            case TIXElementName.SCHEME_FUNCTOR_TERM -> "Functor";
+            case ESXElementName.MODE_PATTERN -> "Mode";
+            case ESXElementName.STANDARD_TYPE -> "Mode";
+            case TIXElementName.EXPANDABLE_TYPE -> "Mode";
+            default -> "ERROR";
+        };
+    }
+
     public Translation translation(Element element) {
-        String sort = "";
-        switch (element.getName()) {
-            case ESXElementName.ATTRIBUTE: sort = "Attribute"; break;
-            case ESXElementName.ATTRIBUTE_PATTERN: sort = "Attribute"; break;
-            case ESXElementName.PREDICATE_PATTERN: sort = "Predicate"; break;
-            case ESXElementName.RELATION_FORMULA: sort = "Predicate"; break;
-            case ESXElementName.RIGHTSIDEOF_RELATION_FORMULA: sort = "Predicate"; break;
-            case ESXElementName.CIRCUMFIX_TERM: sort = "Functor"; break;
-            case ESXElementName.INFIX_TERM: sort = "Functor"; break;
-            case ESXElementName.CIRCUMFIXFUNCTOR_PATTERN: sort = "Functor"; break;
-            case ESXElementName.INFIXFUNCTOR_PATTERN: sort = "Functor"; break;
-            case TIXElementName.SCHEME_FUNCTOR_TERM: sort = "Functor"; break;
-            case ESXElementName.MODE_PATTERN: sort = "Mode"; break;
-            case ESXElementName.STANDARD_TYPE: sort = "Mode"; break;
-            case TIXElementName.EXPANDABLE_TYPE: sort = "Mode"; break;
-            default: sort = "ERROR";
-        }
+        String sort = sort(element.getName());
         for (Translation translation: this) {
                 if (translation.getElement().attributeValue("sort").equals(sort)) {
 //                if (element.attributeValue(ESXAttributeName.SORT).equals(translation.getElement().attributeValue(ESXAttributeName.SORT))) {
@@ -80,7 +84,7 @@ public class Translations extends LinkedList<Translation> {
         Errors.logException(new RuntimeException("Translation not found for "
                 + element.getName() + " "
                 + element.attributeValue(ESXAttributeName.ABSOLUTEPATTERNMMLID) + " "
-                + element.attributeValue(ESXAttributeName.ABSOLUTECONSTRMMLID))," ");
+                + element.attributeValue(ESXAttributeName.ABSOLUTECONSTRMMLID)), element.attributeValue(ESXAttributeName.XMLID));
         Translation dummy = get(0);
         dummy.getElement().setAttributes(List.of(
                 DocumentHelper.createAttribute(dummy.getElement(),"sort",""),
@@ -91,22 +95,7 @@ public class Translations extends LinkedList<Translation> {
     }
 
     public Translation translation(String sort, String absolutePatternMMLId, String absoluteConstrMMLId) {
-        switch (sort) {
-            case ESXElementName.ATTRIBUTE: sort = "Attribute"; break;
-            case ESXElementName.ATTRIBUTE_PATTERN: sort = "Attribute"; break;
-            case ESXElementName.PREDICATE_PATTERN: sort = "Predicate"; break;
-            case ESXElementName.RELATION_FORMULA: sort = "Predicate"; break;
-            case ESXElementName.RIGHTSIDEOF_RELATION_FORMULA: sort = "Predicate"; break;
-            case ESXElementName.CIRCUMFIX_TERM: sort = "Functor"; break;
-            case ESXElementName.INFIX_TERM: sort = "Functor"; break;
-            case ESXElementName.CIRCUMFIXFUNCTOR_PATTERN: sort = "Functor"; break;
-            case ESXElementName.INFIXFUNCTOR_PATTERN: sort = "Functor"; break;
-            case TIXElementName.SCHEME_FUNCTOR_TERM: sort = "Functor"; break;
-            case ESXElementName.MODE_PATTERN: sort = "Mode"; break;
-            case ESXElementName.STANDARD_TYPE: sort = "Mode"; break;
-            case TIXElementName.EXPANDABLE_TYPE: sort = "Mode"; break;
-            default: ;
-        }
+        sort = sort(sort);
         for (Translation translation: this) {
             if (translation.getElement().attributeValue("sort").equals(sort)) {
                 if (absolutePatternMMLId.equals(translation.getElement().attributeValue(ESXAttributeName.ABSOLUTEPATTERNMMLID))
