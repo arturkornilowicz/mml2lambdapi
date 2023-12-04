@@ -66,7 +66,7 @@ public class MML2LambdaPiApplication extends XMLApplication {
                 allPatterns.readPatterns();
                 app.addPatterns();
                 app.lambdaPi.preambule();
-                app.lambdaPi.primitives();
+//                app.lambdaPi.primitives();
                 app.xmlElement.run();
                 app.lambdaPi.endOfArticle();
             } catch (Exception exception) {

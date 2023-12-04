@@ -75,11 +75,12 @@ public class LambdaPi {
 
     public void preambule() {
         addTextLn(Keyword.REQUIRE + " " + Keyword.OPEN + " " + "lp.predicatelogic;");
+        addTextLn(Keyword.REQUIRE + " " + Keyword.OPEN + " " + "lp.lp_adds;");
 //        addTextLn(Keyword.REQUIRE + " " + Keyword.OPEN + " " + "tla.settheory;");
         if (!MML2LambdaPiApplication.fileName.equalsIgnoreCase("hidden")) {
             addEnviron();
         } else {
-            LambdaPi.addTextLn("\nsymbol theGlobalChoice ≔ true;"); // TODO define the global choice
+//            LambdaPi.addTextLn("\nsymbol theGlobalChoice ≔ true;"); // TODO define the global choice
         }
     }
 
